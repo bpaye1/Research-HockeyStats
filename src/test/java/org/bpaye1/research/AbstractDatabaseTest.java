@@ -1,20 +1,18 @@
 package org.bpaye1.research;
 
 import javax.persistence.EntityManager;
-import javax.persistence.PersistenceUnit;
+import javax.persistence.PersistenceContext;
 
-import org.junit.runner.RunWith;
 import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.junit4.AbstractTransactionalJUnit4SpringContextTests;
 import org.springframework.test.context.transaction.TransactionConfiguration;
 
 
 @ContextConfiguration({"classpath:test-application-context.xml"})
 @TransactionConfiguration(defaultRollback = true)
-@RunWith(SpringJUnit4ClassRunner.class)
-public class AbstractDatabaseTest {
+public class AbstractDatabaseTest extends AbstractTransactionalJUnit4SpringContextTests{
 	
-	@PersistenceUnit
+	@PersistenceContext
 	private EntityManager em;
 
 	public EntityManager getEm() {

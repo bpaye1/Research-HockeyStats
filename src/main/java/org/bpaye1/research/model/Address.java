@@ -1,10 +1,21 @@
 package org.bpaye1.research.model;
 
+import javax.persistence.Column;
+import javax.persistence.Embeddable;
+
+@Embeddable
 public class Address {
 	
+	@Column(name="ADDRESS_STREET")
 	private String address;
+	
+	@Column(name="ADDRESS_CITY")
 	private String city;
+	
+	@Column(name="ADDRESS_STATE")
 	private String state;
+	
+	@Column(name="ADDRESS_ZIP_CODE")
 	private String zipCode;
 	
 	public String getAddress() {

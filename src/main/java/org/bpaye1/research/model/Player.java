@@ -33,7 +33,7 @@ public class Player {
 	@Column(name="EMAIL")
 	private String email;
 	
-	@NotEmpty(message="Date of Birth is required.")
+	@NotNull(message="Date of Birth is required.")
 	@Column(name="DATE_OF_BIRTH")
 	private Date dateOfBirth;
 	
@@ -41,7 +41,7 @@ public class Player {
 	private Address address;
 	
 	@Column(name="PHONE_NUMBER")
-	private Long phoneNumber;
+	private String phoneNumber;
 	
 	@NotNull(message="Jersey Number is required.")
 	@Column(name="JERSEY_NUMBER")
@@ -90,11 +90,11 @@ public class Player {
 		this.address = address;
 	}
 	
-	public Long getPhoneNumber() {
+	public String getPhoneNumber() {
 		return phoneNumber;
 	}
 
-	public void setPhoneNumber(Long phoneNumber) {
+	public void setPhoneNumber(String phoneNumber) {
 		this.phoneNumber = phoneNumber;
 	}
 
