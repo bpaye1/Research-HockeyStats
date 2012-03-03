@@ -41,7 +41,7 @@ public class Player {
 	private Address address;
 	
 	@Column(name="PHONE_NUMBER")
-	private Integer phoneNumber;
+	private Long phoneNumber;
 	
 	@NotNull(message="Jersey Number is required.")
 	@Column(name="JERSEY_NUMBER")
@@ -90,11 +90,11 @@ public class Player {
 		this.address = address;
 	}
 	
-	public Integer getPhoneNumber() {
+	public Long getPhoneNumber() {
 		return phoneNumber;
 	}
 
-	public void setPhoneNumber(Integer phoneNumber) {
+	public void setPhoneNumber(Long phoneNumber) {
 		this.phoneNumber = phoneNumber;
 	}
 
