@@ -1,18 +1,14 @@
 package org.bpaye1.research.model;
 
 import static org.hamcrest.Matchers.is;
-import static org.junit.Assert.*;
-
-import java.util.Calendar;
-import java.util.Date;
+import static org.junit.Assert.assertThat;
 
 import org.bpaye1.research.AbstractDatabaseTest;
+import org.bpaye1.research.util.DateUtils;
 import org.junit.Test;
 
 public class PlayerPersistenceTest extends AbstractDatabaseTest{
 	
-	private Calendar calendar = Calendar.getInstance();
-
 	@Test
 	public void persist_Player() throws Exception {
 		Player player = new Player();
@@ -20,7 +16,7 @@ public class PlayerPersistenceTest extends AbstractDatabaseTest{
 		player.setLastName("Gretzky");
 		player.setEmail("wayne-gretzky@somemail.com");
 		player.setJerseyNumber(99);
-		player.setDateOfBirth(newDate(1965,12,12));
+		player.setDateOfBirth(DateUtils.newDate(1965,12,12));
 		player.setPhoneNumber("9992225555");
 		player.setStatus("ACTV");
 		
@@ -49,8 +45,5 @@ public class PlayerPersistenceTest extends AbstractDatabaseTest{
 		assertThat(persistedPlayer.getAddress().getZipCode(), is(address.getZipCode()));
 	}
 	
-	private Date newDate(int year, int month, int date){
-		calendar.set(year, month, date);
-		return calendar.getTime();
-	}
+	
 }

@@ -7,7 +7,9 @@ import javax.persistence.criteria.CriteriaQuery;
 
 import org.bpaye1.research.model.Player;
 import org.bpaye1.research.repository.PlayerRepository;
+import org.springframework.stereotype.Repository;
 
+@Repository
 public class PlayerRepositoryImpl extends GenericRepositoryImpl<Player> implements PlayerRepository {
 
 	public Player find(Long id) {
@@ -16,6 +18,7 @@ public class PlayerRepositoryImpl extends GenericRepositoryImpl<Player> implemen
 
 	public List<Player> list() {
 		CriteriaQuery<Player> criteriaQuery = em.getCriteriaBuilder().createQuery(Player.class);
+		criteriaQuery.select(criteriaQuery.from(Player.class));
 		TypedQuery<Player> query =  em.createQuery(criteriaQuery);
 		return query.getResultList();
 	}
