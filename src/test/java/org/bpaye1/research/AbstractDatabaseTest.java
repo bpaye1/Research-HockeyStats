@@ -10,7 +10,7 @@ import org.springframework.test.context.transaction.TransactionConfiguration;
 
 @ContextConfiguration({"classpath:test-application-context.xml"})
 @TransactionConfiguration(defaultRollback = true)
-public class AbstractDatabaseTest extends AbstractTransactionalJUnit4SpringContextTests{
+public abstract class AbstractDatabaseTest extends AbstractTransactionalJUnit4SpringContextTests{
 	
 	@PersistenceContext
 	private EntityManager em;

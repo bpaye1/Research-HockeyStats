@@ -5,7 +5,10 @@
           <div class="nav-collapse">
             <ul class="nav">
               <li class="">
-                <a href="player/list/">Players</a>
+                <a href="players">Players</a>
+              </li>
+              <li>
+                <a href="player">Add New Player</a>
               </li>
          	  <li>
          	  	<a href="player/list/">Team</a>

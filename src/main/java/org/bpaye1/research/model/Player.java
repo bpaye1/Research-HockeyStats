@@ -8,9 +8,12 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.NotEmpty;
+import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
 @Table(name="PLAYER")
@@ -33,6 +36,8 @@ public class Player {
 	private String email;
 	
 	@NotNull(message="Date of Birth is required.")
+	//@DateTimeFormat(pattern = "dd-MM-yyyy")
+    @Temporal(value=TemporalType.DATE)
 	@Column(name="DATE_OF_BIRTH")
 	private Date dateOfBirth;
 	

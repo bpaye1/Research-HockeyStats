@@ -49,6 +49,7 @@
 					</td>
 					<td>
 						<sf:input id="dateOfBirth" path="dateOfBirth" cssClass="input-medium"/>
+						<sf:errors path="dateOfBirth" cssClass="alert-error" />
 					</td>
 				</tr>
 				<tr>
