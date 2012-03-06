@@ -11,13 +11,16 @@ import org.bpaye1.research.model.Player;
 import org.bpaye1.research.repository.PlayerRepository;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.ServletRequestDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+@Transactional
 @Controller
 public class PlayerController {
 	
@@ -37,26 +40,26 @@ public class PlayerController {
 		return "players";
 	}
 	
-	@RequestMapping(value="/player", method=RequestMethod.GET)
+	@RequestMapping(value="/players/player", method=RequestMethod.GET)
 	public String add(Model model){
 		model.addAttribute("player", new Player());
 		return "player";
 	}
 	
-	@RequestMapping(value="/player", method=RequestMethod.POST)
+	@RequestMapping(value="/players/player", method=RequestMethod.POST)
 	public String add(@Valid Player player, BindingResult bindingResult){
-		
-		System.out.println(bindingResult.getErrorCount());
-		System.out.println(bindingResult.getAllErrors().get(0).toString());
-
 		if(bindingResult.hasErrors()){
-			System.out.println("error");
 			return "player";
 		}
-		
 		repository.add(player);
-		
 		return "redirect:/players/";
+	}
+	
+	@RequestMapping(value="/players/player/{id}", method=RequestMethod.GET)
+	public String edit(@PathVariable Long id, Model model){
+		System.out.println("INNNNINSINSINSISNS");
+		model.addAttribute("player", repository.find(Long.valueOf(id)));
+		return "player";
 	}
 
 }

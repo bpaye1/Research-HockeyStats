@@ -101,6 +101,22 @@
 						<sf:errors path="jerseyNumber" cssClass="alert-error" />
 					</td>
 				</tr>
+				<tr>
+					<td>
+						<label>Position:</label>
+					</td>
+					<td>
+						<sf:select path="position" cssClass="input-medium"></sf:select>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<label>Home Town:</label>
+					</td>
+					<td>
+						<sf:input id="homeTown" path="homeTown" cssClass="input-medium" maxlength="25"/>
+					</td>
+				</tr>
 			</table>	
 			</fieldset>
 			<input type="submit" name="Add" value="Add Player" class="btn-primary" />

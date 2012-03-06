@@ -5,6 +5,8 @@ import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
@@ -13,7 +15,6 @@ import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.NotEmpty;
-import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
 @Table(name="PLAYER")
@@ -51,10 +52,19 @@ public class Player {
 	@Column(name="JERSEY_NUMBER")
 	private Integer jerseyNumber;
 	
+	@Column(name="HOME_TOWN")
+	private String homeTown;
+	
+	@Enumerated(EnumType.STRING)
+	@Column(name="POSITION")
+	private Position position;
+	
+	@Enumerated(EnumType.STRING)
 	@Column(name="STATUS")
-	private String status;
+	private Status status;
 	
 	public Player(){
+		this.status = Status.ACTIVE;
 	}
 	
 	public Player(String lastName, String firstName, Date dateOfBirth,
@@ -63,7 +73,7 @@ public class Player {
 		this.firstName = firstName;
 		this.dateOfBirth = dateOfBirth;
 		this.jerseyNumber = jerseyNumber;
-		this.status ="ACTV";
+		this.status = Status.ACTIVE;
 	}
 
 	public String getLastName() {
@@ -122,14 +132,30 @@ public class Player {
 		this.jerseyNumber = jerseyNumber;
 	}
 	
-	public String getStatus() {
+	public Status getStatus() {
 		return status;
 	}
 	
-	public void setStatus(String status) {
+	public void setStatus(Status status) {
 		this.status = status;
 	}
 	
+	public String getHomeTown() {
+		return homeTown;
+	}
+
+	public void setHomeTown(String homeTown) {
+		this.homeTown = homeTown;
+	}
+	
+	public Position getPosition() {
+		return position;
+	}
+
+	public void setPosition(Position position) {
+		this.position = position;
+	}
+
 	public Long getId() {
 		return id;
 	}

@@ -8,7 +8,7 @@
                 <a href="players">Players</a>
               </li>
               <li>
-                <a href="player">Add New Player</a>
+                <a href="players/player">Add New Player</a>
               </li>
          	  <li>
          	  	<a href="player/list/">Team</a>

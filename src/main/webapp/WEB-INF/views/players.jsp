@@ -9,10 +9,38 @@
 </head>
 <body>
 	<jsp:include page="navigation.jsp" />
-	<br/><br/><br/>
-	<div>
-		PLayers
+	<div class="container">
+		<br/><br/><br/>
+		<div class="row">
+			<div class="span16">
+				<h4>Players</h4>
+				<table class="table table-striped table-bordered table-condensed">
+					<thead>
+						<tr>
+							<th class="span1">#</th>
+							<th class="span1">Name</th>
+							<th class="span1">Position</th>
+							<th class="span4">Home Town</th>
+						</tr>
+					</thead>
+					<tbody>
+						<c:forEach var="player" items="${players}">
+							<s:url var="playerUrl" value="/players/player/${player.id}" />
+							<tr>
+								<td>${player.jerseyNumber}</td>
+								<td>
+									<a href="${playerUrl}">
+										${player.firstName} ${player.lastName}								
+									</a>
+								</td>	
+								<td>${player.position}</td>
+								<td>${player.homeTown}</td>
+							</tr>
+						</c:forEach>
+					</tbody>
+				</table>
+			</div>
+		</div>
 	</div>
-
 </body>
 </html>
