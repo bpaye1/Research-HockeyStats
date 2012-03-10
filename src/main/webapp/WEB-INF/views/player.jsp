@@ -1,21 +1,11 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://www.springframework.org/tags" prefix="s" %>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="sf" %>
-<html>
-<head>
-	<title>Player Form</title>
-	<link rel="stylesheet" href="<c:url value="/resources/bootstrap.min.css" />" type="text/css" media="screen, projection">
-	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.6/jquery.min.js"></script>
-</head>
-<body>
-	<jsp:include page="navigation.jsp" />
-	<br/><br/><br/>
-	<div class="container" style="display: block;clear:both;">
-		<header>
-			<h3>Add New Player</h3>
-		</header>
-		<sf:form method="post" modelAttribute="player">
-			<fieldset class="well">
+
+<div class="container" >
+	<h3>Add New Player</h3>
+	<sf:form method="post" modelAttribute="player">
+		<fieldset class="well">
 			<table cellspacing="0">
 				<tr>
 					<td>
@@ -48,8 +38,8 @@
 						<label>Date of Birth:</label>
 					</td>
 					<td>
-						<sf:input id="dateOfBirth" path="dateOfBirth" cssClass="input-medium"/>
-						<sf:errors path="dateOfBirth" cssClass="alert-error" />
+						<sf:input id="dateOfBirth" path="dateOfBirth" placeholder="MM-DD-YYYY" cssClass="input-medium"/>
+						<sf:errors path="dateOfBirth" cssClass="alert-error"  />
 					</td>
 				</tr>
 				<tr>
@@ -106,7 +96,9 @@
 						<label>Position:</label>
 					</td>
 					<td>
-						<sf:select path="position" cssClass="input-medium"></sf:select>
+						<sf:select path="position" cssClass="input-medium">
+							<sf:options items="${positions}"/>
+						</sf:select>
 					</td>
 				</tr>
 				<tr>
@@ -118,11 +110,8 @@
 					</td>
 				</tr>
 			</table>	
-			</fieldset>
-			<input type="submit" name="Add" value="Add Player" class="btn-primary" />
-			<input type="reset" name="Cancel" value="Cancel" />
-		</sf:form>
-	
-	</div>
-</body>
-</html>
+		</fieldset>
+		<input type="submit" name="Add" value="Add Player" class="btn-primary" />
+		<input type="reset" name="Cancel" value="Cancel" />
+	</sf:form>
+</div>

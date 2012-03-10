@@ -13,6 +13,7 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 
 import org.hibernate.validator.constraints.NotEmpty;
 
@@ -33,11 +34,11 @@ public class Player {
 	@Column(name="FIRST_NAME")
 	private String firstName;
 	
+	@Pattern(regexp="[A-Za-z0-9._%=-]+@[A-za-z0-9.-]+\\.[A-Za-z]{2,4}", message="Invalid email address")
 	@Column(name="EMAIL")
 	private String email;
 	
-	@NotNull(message="Date of Birth is required.")
-	//@DateTimeFormat(pattern = "dd-MM-yyyy")
+	@NotNull
     @Temporal(value=TemporalType.DATE)
 	@Column(name="DATE_OF_BIRTH")
 	private Date dateOfBirth;

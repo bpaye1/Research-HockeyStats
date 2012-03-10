@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 import org.bpaye1.research.model.Player;
+import org.bpaye1.research.model.Position;
 import org.bpaye1.research.repository.PlayerRepository;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.stereotype.Controller;
@@ -31,7 +32,7 @@ public class PlayerController {
 	protected void initBinder(HttpServletRequest request, ServletRequestDataBinder binder) {
 		SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
 		dateFormat.setLenient(false);
-		binder.registerCustomEditor(Date.class, null, new CustomDateEditor(dateFormat, true));
+		binder.registerCustomEditor(Date.class, new CustomDateEditor(dateFormat, false));
 	}
 	
 	@RequestMapping(value="/players", method=RequestMethod.GET)
@@ -43,6 +44,7 @@ public class PlayerController {
 	@RequestMapping(value="/players/player", method=RequestMethod.GET)
 	public String add(Model model){
 		model.addAttribute("player", new Player());
+		model.addAttribute("positions", Position.values());
 		return "player";
 	}
 	
@@ -57,7 +59,6 @@ public class PlayerController {
 	
 	@RequestMapping(value="/players/player/{id}", method=RequestMethod.GET)
 	public String edit(@PathVariable Long id, Model model){
-		System.out.println("INNNNINSINSINSISNS");
 		model.addAttribute("player", repository.find(Long.valueOf(id)));
 		return "player";
 	}
