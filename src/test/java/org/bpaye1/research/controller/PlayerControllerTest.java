@@ -2,7 +2,6 @@ package org.bpaye1.research.controller;
 
 import static org.hamcrest.Matchers.hasItem;
 import static org.hamcrest.Matchers.is;
-import static org.junit.Assert.*;
 import static org.junit.Assert.assertThat;
 import static org.mockito.Matchers.anyLong;
 import static org.mockito.Mockito.times;
@@ -113,5 +112,31 @@ public class PlayerControllerTest {
 		assertThat((Player)model.asMap().get("player"), is(ben));
 		assertThat(model.containsAttribute("positions"), is(true));
 		assertThat(model.containsAttribute("states"), is(true));
+	}
+	
+	@Test
+	public void editPlayer_saveWhenNoBindingErrorsExist() throws Exception {
+		Player joe = new Player("Howard", "joe", new Date(), 12);
+		
+		when(bindResult.hasErrors()).thenReturn(false);
+		
+		String viewName = controller.editPlayer(joe, bindResult);
+		assertThat(viewName, is("redirect:/players/"));
+		
+		ArgumentCaptor<Player> argument = ArgumentCaptor.forClass(Player.class);
+		verify(playerRepository).update(argument.capture());
+		assertThat(argument.getValue(), is(joe));
+	}
+	
+	@Test
+	public void editPlayer_saveWhenBindingErrorsExist() throws Exception {
+		Player joe = new Player("Howard", "joe", new Date(), 12);
+		
+		when(bindResult.hasErrors()).thenReturn(true);
+		
+		String viewName = controller.editPlayer(joe, bindResult);
+		assertThat(viewName, is("player"));
+		
+		verify(playerRepository, times(0)).update(joe);
 	}
 }

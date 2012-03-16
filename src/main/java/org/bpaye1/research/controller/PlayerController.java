@@ -72,6 +72,14 @@ public class PlayerController {
 		model.addAttribute("positions", Position.values());
 		return "player";
 	}
-
+	
+	@RequestMapping(value="/players/player/{id}", method=RequestMethod.POST)
+	public String editPlayer(@Valid Player player, BindingResult bindingResult){
+		if(bindingResult.hasErrors()){
+			return "player";
+		}
+		repository.update(player);
+		return "redirect:/players/";
+	}
 }
 	
