@@ -63,7 +63,10 @@
 						<label>State:</label>
 					</td>
 					<td>
-						<sf:select id="address_state" path="address.state" cssClass="input-mini"/>
+						<sf:select id="address_state" path="address.state" cssClass="input-medium">
+							<sf:option value="" label="Select" />
+							<sf:options items="${states}" itemValue="code" itemLabel="name"/>
+						</sf:select>
 					</td>
 				</tr>
 				<tr>	
@@ -97,7 +100,8 @@
 					</td>
 					<td>
 						<sf:select path="position" cssClass="input-medium">
-							<sf:options items="${positions}"/>
+							<sf:option value="" label="Select" />
+							<sf:options items="${positions}" itemLabel="description"/>
 						</sf:select>
 					</td>
 				</tr>

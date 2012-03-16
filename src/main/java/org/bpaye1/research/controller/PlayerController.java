@@ -10,6 +10,7 @@ import javax.validation.Valid;
 import org.bpaye1.research.model.Player;
 import org.bpaye1.research.model.Position;
 import org.bpaye1.research.repository.PlayerRepository;
+import org.bpaye1.research.repository.StateRepository;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
@@ -25,9 +26,15 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @Controller
 public class PlayerController {
 	
-	@Inject
-	PlayerRepository repository;
+	private PlayerRepository repository;
+	private StateRepository stateRepository;
 	
+	@Inject
+	public PlayerController(PlayerRepository repository,StateRepository stateRepository) {
+		this.repository = repository;
+		this.stateRepository = stateRepository;
+	}
+
 	@InitBinder
 	protected void initBinder(HttpServletRequest request, ServletRequestDataBinder binder) {
 		SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
@@ -36,20 +43,21 @@ public class PlayerController {
 	}
 	
 	@RequestMapping(value="/players", method=RequestMethod.GET)
-	public String players(Model model){
+	public String findPlayers(Model model){
 		model.addAttribute("players", repository.list());
 		return "players";
 	}
 	
 	@RequestMapping(value="/players/player", method=RequestMethod.GET)
-	public String add(Model model){
+	public String addPlayer(Model model){
 		model.addAttribute("player", new Player());
 		model.addAttribute("positions", Position.values());
+		model.addAttribute("states", stateRepository.list());
 		return "player";
 	}
 	
 	@RequestMapping(value="/players/player", method=RequestMethod.POST)
-	public String add(@Valid Player player, BindingResult bindingResult){
+	public String addPlayer(@Valid Player player, BindingResult bindingResult){
 		if(bindingResult.hasErrors()){
 			return "player";
 		}
@@ -58,8 +66,10 @@ public class PlayerController {
 	}
 	
 	@RequestMapping(value="/players/player/{id}", method=RequestMethod.GET)
-	public String edit(@PathVariable Long id, Model model){
+	public String editPlayer(@PathVariable Long id, Model model){
 		model.addAttribute("player", repository.find(Long.valueOf(id)));
+		model.addAttribute("states", stateRepository.list());
+		model.addAttribute("positions", Position.values());
 		return "player";
 	}
 
