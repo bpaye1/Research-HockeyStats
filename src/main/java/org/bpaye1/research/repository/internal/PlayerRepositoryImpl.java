@@ -5,7 +5,7 @@ import java.util.List;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaQuery;
 
-import org.bpaye1.research.model.Player;
+import org.bpaye1.research.model.player.Player;
 import org.bpaye1.research.repository.PlayerRepository;
 import org.springframework.stereotype.Repository;
 

@@ -198,6 +198,13 @@
 			<version>11.0.1</version>
 		</dependency>
 
+		<!-- Joda Time -->
+		<dependency>
+			<groupId>joda-time</groupId>
+			<artifactId>joda-time</artifactId>
+			<version>1.5.2</version>
+		</dependency>
+		
 		<!-- Miscellaneous -->
 		<dependency>
 			<groupId>cglib</groupId>

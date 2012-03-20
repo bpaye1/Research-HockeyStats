@@ -1,4 +1,4 @@
-package org.bpaye1.research.model;
+package org.bpaye1.research.model.player;
 
 public class State {
 	

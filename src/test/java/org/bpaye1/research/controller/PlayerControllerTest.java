@@ -11,7 +11,7 @@ import static org.mockito.Mockito.when;
 import java.util.Date;
 import java.util.List;
 
-import org.bpaye1.research.model.Player;
+import org.bpaye1.research.model.player.Player;
 import org.bpaye1.research.repository.PlayerRepository;
 import org.bpaye1.research.repository.StateRepository;
 import org.junit.Before;

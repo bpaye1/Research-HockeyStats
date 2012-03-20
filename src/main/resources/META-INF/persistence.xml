@@ -7,7 +7,7 @@
 
 	<persistence-unit name="HOCKEY-STATS">
 		<class>
-			org.bpaye1.research.model.Player
+			org.bpaye1.research.model.player.Player
 		</class>
 	</persistence-unit>
 </persistence>

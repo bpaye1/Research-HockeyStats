@@ -3,7 +3,7 @@ package org.bpaye1.research.repository.internal;
 import java.util.List;
 
 import org.apache.commons.lang.NotImplementedException;
-import org.bpaye1.research.model.State;
+import org.bpaye1.research.model.player.State;
 import org.bpaye1.research.repository.StateRepository;
 import org.springframework.stereotype.Repository;
 

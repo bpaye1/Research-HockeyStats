@@ -1,4 +1,4 @@
-package org.bpaye1.research.model;
+package org.bpaye1.research.model.player;
 
 import javax.persistence.Column;
 import javax.persistence.Embeddable;

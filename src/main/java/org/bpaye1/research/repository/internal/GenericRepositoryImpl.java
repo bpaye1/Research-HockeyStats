@@ -5,9 +5,7 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
-import org.bpaye1.research.repository.GenericRepository;
-
-public abstract class GenericRepositoryImpl<T> implements GenericRepository<T>{
+public abstract class GenericRepositoryImpl<T> {
 
 	@PersistenceContext
 	public EntityManager em;

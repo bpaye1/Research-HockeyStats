@@ -1,4 +1,4 @@
-package org.bpaye1.research.model;
+package org.bpaye1.research.model.player;
 
 public enum Position {
 	GOALIE("Goalie"), DEFENSEMEN("Defensemen"), CENTER("Center"), RIGHT_WING("Right Wing"), LEFT_WING("Left Wing");

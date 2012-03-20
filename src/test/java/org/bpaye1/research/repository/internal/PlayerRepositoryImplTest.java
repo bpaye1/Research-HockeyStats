@@ -9,7 +9,7 @@ import java.util.List;
 import javax.inject.Inject;
 
 import org.bpaye1.research.AbstractDatabaseTest;
-import org.bpaye1.research.model.Player;
+import org.bpaye1.research.model.player.Player;
 import org.bpaye1.research.repository.PlayerRepository;
 import org.bpaye1.research.util.DateUtils;
 import org.junit.Test;

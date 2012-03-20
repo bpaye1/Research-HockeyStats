@@ -14,12 +14,12 @@
 	</definition>
 	
 	<definition name="players" extends="template">
-		<put-attribute name="content" value="/WEB-INF/views/players.jsp" />
+		<put-attribute name="content" value="/WEB-INF/views/admin/players.jsp" />
 		<put-attribute name="title" value="Players" />
 	</definition>
 	
 	<definition name="player" extends="template">
-		<put-attribute name="content" value="/WEB-INF/views/player.jsp" />
+		<put-attribute name="content" value="/WEB-INF/views/admin/player.jsp" />
 		<put-attribute name="title" value="Player" />
 	</definition>
 	

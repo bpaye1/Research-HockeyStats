@@ -7,8 +7,8 @@ import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
-import org.bpaye1.research.model.Player;
-import org.bpaye1.research.model.Position;
+import org.bpaye1.research.model.player.Player;
+import org.bpaye1.research.model.player.Position;
 import org.bpaye1.research.repository.PlayerRepository;
 import org.bpaye1.research.repository.StateRepository;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
@@ -24,10 +24,14 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 @Transactional
 @Controller
-public class PlayerController {
+@RequestMapping(value="/admin")
+public class PlayerController{
 	
 	private PlayerRepository repository;
 	private StateRepository stateRepository;
+	
+	protected PlayerController(){
+	}
 	
 	@Inject
 	public PlayerController(PlayerRepository repository,StateRepository stateRepository) {
