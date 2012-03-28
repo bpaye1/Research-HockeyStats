@@ -28,7 +28,7 @@
 				<tr>	
 					<td>
 						<label>Email:</label>
-					</td>
+					</td>	
 					<td>
 						<sf:input id="email" path="email" cssClass="input-medium" />
 					</td>
@@ -115,7 +115,7 @@
 				</tr>
 			</table>	
 		</fieldset>
-		<input type="submit" name="Add" value="Add Player" class="btn-primary" />
+		<input type="submit" name="Add" value="Add" class="btn-primary" />
 		<input type="reset" name="Cancel" value="Cancel" />
 	</sf:form>
 </div>

@@ -2,18 +2,40 @@ package org.bpaye1.research.model.schedule;
 
 import java.util.List;
 
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+
 import com.google.common.collect.Lists;
 
+@Entity
+@Table(name="SCHEDULE")
 public class Schedule {
 
+	@Id
+	@GeneratedValue
+	@Column(name="ID")
 	private Integer id;
+	
+	@Column(name="DESCRIPTION")
 	private String description;
-	private String division;
+	
+	@Column(name="LEAGUE")
+	private String league;
+	
+	@OneToMany(cascade=CascadeType.ALL, mappedBy="schedule", orphanRemoval=true)
 	private List<Game> games = Lists.newArrayList();
 	
-	public Schedule(String description, String division){
+	public Schedule(){
+	}
+	
+	public Schedule(String description, String league){
 		this.description = description;
-		this.division = division;
+		this.league = league;
 	}
 	
 	public Integer getId() {
@@ -28,16 +50,20 @@ public class Schedule {
 		this.description = description;
 	}
 
-	public String getDivision() {
-		return division;
+	public String getLeague() {
+		return league;
 	}
 
-	public void setDivision(String division) {
-		this.division = division;
+	public void setLeague(String league) {
+		this.league = league;
 	}
 	
 	public List<Game> getGames(){
 		return games;
+	}
+	
+	public void setGames(List<Game> games){
+		this.games = games;
 	}
 		
 	public Game addGame(Game game){

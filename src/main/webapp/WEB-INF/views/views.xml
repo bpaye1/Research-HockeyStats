@@ -23,4 +23,20 @@
 		<put-attribute name="title" value="Player" />
 	</definition>
 	
+	<definition name="schedules" extends="template">
+		<put-attribute name="content" value="/WEB-INF/views/admin/schedules.jsp" />
+		<put-attribute name="title" value="Schedules" />
+	</definition>
+	
+	<definition name="schedule" extends="template">
+		<put-attribute name="content" value="/WEB-INF/views/admin/schedule.jsp" />
+		<put-attribute name="title" value="Schedule" />
+	</definition>
+	
+	<definition name="new-schedule" extends="template">
+		<put-attribute name="content" value="/WEB-INF/views/admin/new-schedule.jsp" />
+		<put-attribute name="title" value="New Schedule" />
+	</definition>
+	
+	
 </tiles-definitions>

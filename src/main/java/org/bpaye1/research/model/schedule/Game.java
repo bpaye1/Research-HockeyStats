@@ -1,17 +1,47 @@
 package org.bpaye1.research.model.schedule;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+
 import org.bpaye1.research.model.player.Player;
+import org.hibernate.annotations.Type;
 import org.joda.time.LocalDate;
 import org.joda.time.LocalTime;
 
+@Entity
+@Table(name="GAME")
 public class Game {
 	
+	@Id
+	@GeneratedValue
+	@Column(name="ID")
 	private Long id;
+	
+	@ManyToOne
+	@JoinColumn(name="SCHEDULE_ID")
 	private Schedule schedule;
+	
+	@Type(type="org.jadira.usertype.dateandtime.joda.PersistentLocalDate")
+	@Column(name="GAME_DATE")
 	private LocalDate date;
+	
+	@Type(type="org.jadira.usertype.dateandtime.joda.PersistentLocalTime")
+	@Column(name="GAME_TIME")
 	private LocalTime time;
+	
+	@Column(name="OPPONENT")
 	private String opponent;
+	
+	@Column(name="HOME_OR_AWAY")
 	private String homeOrAway;
+	
+	@ManyToOne
+	@JoinColumn(name="PLAYER_ON_BEVARAGE_DUTY")
 	private Player beverageDutyPlayer;
 	
 	protected Game(){

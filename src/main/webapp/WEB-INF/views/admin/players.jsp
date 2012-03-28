@@ -9,7 +9,7 @@
 			<table class="table table-striped table-bordered table-condensed">
 				<thead>
 					<tr>
-						<th class="span1"></th>
+						<th class="span1">#</th>
 						<th class="span1">Name</th>
 						<th class="span1">Position</th>
 						<th class="span4">Home Town</th>

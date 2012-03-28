@@ -6,9 +6,9 @@
  version="1.0">
 
 	<persistence-unit name="HOCKEY-STATS">
-		<class>
-			org.bpaye1.research.model.player.Player
-		</class>
+		<class>org.bpaye1.research.model.player.Player</class>
+		<class>org.bpaye1.research.model.schedule.Schedule</class>
+		<class>org.bpaye1.research.model.schedule.Game</class>
 	</persistence-unit>
 </persistence>
 

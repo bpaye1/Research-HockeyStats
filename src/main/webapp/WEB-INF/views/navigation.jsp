@@ -35,7 +35,7 @@
               		</li>
               		<li>
               			<s:url value="/admin/schedules/schedule" var="schedule_url"/>
-                		<a href="${schedule_url}">Create</a>
+                		<a href="${schedule_url}">Add Schedule</a>
               		</li>
               	</ul>
               </li>

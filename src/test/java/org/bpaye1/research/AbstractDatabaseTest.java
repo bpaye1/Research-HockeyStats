@@ -18,4 +18,10 @@ public abstract class AbstractDatabaseTest extends AbstractTransactionalJUnit4Sp
 	public EntityManager getEm() {
 		return em;
 	}
+	
+	public void persist(Object entity){
+		em.persist(entity);
+		em.flush();
+		em.clear();
+	}
 }

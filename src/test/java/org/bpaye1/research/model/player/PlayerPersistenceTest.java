@@ -4,14 +4,10 @@ import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertThat;
 
 import org.bpaye1.research.AbstractDatabaseTest;
-import org.bpaye1.research.model.player.Address;
-import org.bpaye1.research.model.player.Player;
-import org.bpaye1.research.model.player.Position;
-import org.bpaye1.research.model.player.Status;
 import org.bpaye1.research.util.DateUtils;
 import org.junit.Test;
 
-public class PlayerPersistenceTest extends AbstractDatabaseTest{
+public class PlayerPersistenceTest extends AbstractDatabaseTest {
 	
 	@Test
 	public void persist_Player() throws Exception {
@@ -34,9 +30,7 @@ public class PlayerPersistenceTest extends AbstractDatabaseTest{
 		
 		player.setAddress(address);
 		
-		getEm().persist(player);
-		getEm().flush();
-		getEm().clear();
+		persist(player);
 		
 		Player persistedPlayer = getEm().find(Player.class, player.getId());
 		assertThat(persistedPlayer.getFirstName(), is(player.getFirstName()));

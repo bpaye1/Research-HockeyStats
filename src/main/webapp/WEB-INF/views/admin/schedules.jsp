@@ -5,28 +5,25 @@
 <div class="container">
 	<div class="row">
 		<div class="span16">
-			<h3>Players</h3>
+			<h3>Schedules</h3>
 			<table class="table table-striped table-bordered table-condensed">
 				<thead>
 					<tr>
-						<th class="span1">#</th>
-						<th class="span1">Name</th>
-						<th class="span1">Position</th>
-						<th class="span4">Home Town</th>
+						<th class="span1">Description</th>
+						<th class="span1">Division</th>
 					</tr>
 				</thead>
 				<tbody>
-					<c:forEach var="player" items="${players}">
-						<s:url var="playerUrl" value="/players/player/${player.id}" />
+					<c:forEach var="schedule" items="${schedules}">
+						<s:url var="scheduleUrl" value="/schedules/schedule/${schedule.id}" />
 						<tr>
-							<td>${player.jerseyNumber}</td>
+							<td>${schedule.description}</td>
 							<td>
-								<a href="${playerUrl}">
-									${player.firstName} ${player.lastName}								
+								<a href="${scheduleUrl}">
+									${schedule.description}								
 								</a>
 							</td>	
-							<td>${player.position}</td>
-							<td>${player.homeTown}</td>
+							<td>${schedule.league}</td>
 						</tr>
 					</c:forEach>
 				</tbody>
