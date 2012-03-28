@@ -202,9 +202,14 @@
 		<dependency>
 			<groupId>joda-time</groupId>
 			<artifactId>joda-time</artifactId>
-			<version>1.5.2</version>
+			<version>2.0</version>
 		</dependency>
-		
+		<dependency>
+			<groupId>org.jadira.usertype</groupId>
+			<artifactId>usertype.core</artifactId>
+			<version>3.0.0.CR1</version>
+		</dependency>
+
 		<!-- Miscellaneous -->
 		<dependency>
 			<groupId>cglib</groupId>
@@ -216,7 +221,6 @@
 			<artifactId>commons-lang</artifactId>
 			<version>2.2</version>
 		</dependency>
-
 	</dependencies>
 	<repositories>
 		<!-- For testing against latest Spring snapshots -->
