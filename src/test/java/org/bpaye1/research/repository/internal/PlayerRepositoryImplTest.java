@@ -18,28 +18,15 @@ public class PlayerRepositoryImplTest extends AbstractDatabaseTest {
 	@Inject
 	private PlayerRepository repository;
 
-	@Test
-	public void add_shouldPersistPlayer() throws Exception {
-		Player player = new Player("Richard", "Maurice", DateUtils.newDate(1945, 12, 12), 9);
-		repository.add(player);
-		assertThat(repository.find(player.getId()), is(player));
-	}
-	
-	@Test
-	public void update() throws Exception {
-		Player player = repository.add(new Player("Richard", "Maurice", DateUtils.newDate(1945, 12, 12), 9));
-		assertThat(player.getFirstName(), is("Maurice"));
-		
-		player.setFirstName("Moe");
-		
-		repository.update(player);
-		
-		Player updatedPlayer = repository.find(player.getId());
-		assertThat(updatedPlayer.getFirstName(), is("Moe"));
-	}
-	
-	@Test
-	public void list() throws Exception {
+    @Test
+    public void find() throws Exception {
+        Player player = new Player("Richard", "Maurice", DateUtils.newDate(1945, 12, 12), 9);
+        repository.add(player);
+        assertThat(repository.find(player.getId()), is(player));
+    }
+
+    @Test
+	public void findAll() throws Exception {
 		Player maurice = repository.add(new Player("Richard", "Maurice", DateUtils.newDate(1945, 12, 12), 9));
 		Player henry = repository.add(new Player("Henry", "Maurice", DateUtils.newDate(1945, 12, 12), 12));
 		
