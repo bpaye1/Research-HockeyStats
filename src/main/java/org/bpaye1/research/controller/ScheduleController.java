@@ -16,10 +16,14 @@ import javax.inject.Inject;
 @Controller
 public class ScheduleController {
 
-    @Inject
-    ScheduleRepository repository;
+    private ScheduleRepository repository;
 
-	@RequestMapping(value = "", method=RequestMethod.GET)
+    @Inject
+    public ScheduleController(ScheduleRepository repository) {
+        this.repository = repository;
+    }
+
+    @RequestMapping(value = "", method=RequestMethod.GET)
 	public String findSchedules(Model model){
 		model.addAttribute("schedules", repository.findAll());
 		return "schedules";
