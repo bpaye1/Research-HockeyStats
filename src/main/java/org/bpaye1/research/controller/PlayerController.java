@@ -1,12 +1,5 @@
 package org.bpaye1.research.controller;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
-
-import javax.inject.Inject;
-import javax.servlet.http.HttpServletRequest;
-import javax.validation.Valid;
-
 import org.bpaye1.research.model.player.Player;
 import org.bpaye1.research.model.player.Position;
 import org.bpaye1.research.repository.PlayerRepository;
@@ -21,6 +14,12 @@ import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+
+import javax.inject.Inject;
+import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 @Transactional
 @Controller
@@ -48,7 +47,7 @@ public class PlayerController{
 	
 	@RequestMapping(value="/players", method=RequestMethod.GET)
 	public String findPlayers(Model model){
-		model.addAttribute("players", repository.list());
+		model.addAttribute("players", repository.findAll());
 		return "players";
 	}
 	
@@ -56,7 +55,7 @@ public class PlayerController{
 	public String addPlayer(Model model){
 		model.addAttribute("player", new Player());
 		model.addAttribute("positions", Position.values());
-		model.addAttribute("states", stateRepository.list());
+		model.addAttribute("states", stateRepository.findAll());
 		return "player";
 	}
 	
@@ -72,7 +71,7 @@ public class PlayerController{
 	@RequestMapping(value="/players/player/{id}", method=RequestMethod.GET)
 	public String editPlayer(@PathVariable Long id, Model model){
 		model.addAttribute("player", repository.find(Long.valueOf(id)));
-		model.addAttribute("states", stateRepository.list());
+		model.addAttribute("states", stateRepository.findAll());
 		model.addAttribute("positions", Position.values());
 		return "player";
 	}

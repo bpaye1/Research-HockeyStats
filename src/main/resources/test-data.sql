@@ -1,0 +1,3 @@
+-- Schedule
+INSERT INTO SCHEDULE VALUES(0, 'Summer 2011', 'C League');
+INSERT INTO SCHEDULE VALUES(1, 'Winter 2011-2012', 'B League');

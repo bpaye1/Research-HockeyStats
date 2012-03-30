@@ -1,22 +1,21 @@
 package org.bpaye1.research.repository.internal;
 
-import java.util.List;
-
+import com.google.common.collect.Lists;
 import org.apache.commons.lang.NotImplementedException;
 import org.bpaye1.research.model.player.State;
 import org.bpaye1.research.repository.StateRepository;
 import org.springframework.stereotype.Repository;
 
-import com.google.common.collect.Lists;
+import java.util.List;
 
 @Repository
-public class StateRepositoryImpl implements StateRepository {
+public class StateRepositoryImpl extends GenericRepositoryImpl<State, Long> implements StateRepository {
 
 	public State find(Long id) {
 		throw new NotImplementedException("Method find(Long id) not implemented.");
 	}
 
-	public List<State> list() {
+	public List<State> findAll() {
 		// TODO Determine whether we to store state info in database or in a helper class.
 		List<State> states = Lists.newArrayList();
 		states.add(new State("AL","Alabama"));
@@ -73,12 +72,13 @@ public class StateRepositoryImpl implements StateRepository {
 		return states;
 	}
 
+    @Override
 	public State add(State object) {
 		throw new NotImplementedException("Method add(State object) not implemented.");
 	}
 
-	public State update(State object) {
+    @Override
+	public void update(State object) {
 		throw new NotImplementedException("Method update(State object) not implemented.");
 	}
-
 }

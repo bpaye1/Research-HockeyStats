@@ -2,9 +2,11 @@ package org.bpaye1.research.repository;
 
 import java.util.List;
 
-public interface GenericRepository<T> {
-	T find(Long id);
-	List<T> list();
+public interface GenericRepository<T, ID> {
+	T find(ID id);
 	T add(T object);
-	T update(T object);
+	void update(T object);
+	void remove(T object);
+    List<T> findAll();
 }
+

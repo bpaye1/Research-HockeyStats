@@ -1,12 +1,13 @@
 package org.bpaye1.research.repository.internal;
 
-import java.util.List;
+import org.bpaye1.research.repository.GenericRepository;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import java.util.List;
 
-public abstract class GenericRepositoryImpl<T> {
-
+public abstract class GenericRepositoryImpl<T, ID> implements GenericRepository<T, ID> {
+ 
 	@PersistenceContext
 	public EntityManager em;
 	
@@ -17,13 +18,18 @@ public abstract class GenericRepositoryImpl<T> {
 		return object;
 	}
 
-	public T update(T object) {
+	public void update(T object) {
 		em.merge(object);
 		em.flush();
 		em.clear();
-		return object;
 	}
 
-	public abstract List<T> list();
-	public abstract T find(Long Id);
+    public void remove(T object) {
+        em.remove(object);
+        em.flush();
+        em.clear();
+    }
+
+    public abstract List<T> findAll();
+	public abstract T find(ID id);
 }

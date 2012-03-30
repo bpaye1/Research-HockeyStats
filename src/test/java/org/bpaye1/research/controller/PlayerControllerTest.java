@@ -1,16 +1,6 @@
 package org.bpaye1.research.controller;
 
-import static org.hamcrest.Matchers.hasItem;
-import static org.hamcrest.Matchers.is;
-import static org.junit.Assert.assertThat;
-import static org.mockito.Matchers.anyLong;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
-
-import java.util.Date;
-import java.util.List;
-
+import com.google.common.collect.Lists;
 import org.bpaye1.research.model.player.Player;
 import org.bpaye1.research.repository.PlayerRepository;
 import org.bpaye1.research.repository.StateRepository;
@@ -24,7 +14,14 @@ import org.springframework.ui.ExtendedModelMap;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 
-import com.google.common.collect.Lists;
+import java.util.Date;
+import java.util.List;
+
+import static org.hamcrest.Matchers.hasItem;
+import static org.hamcrest.Matchers.is;
+import static org.junit.Assert.assertThat;
+import static org.mockito.Matchers.anyLong;
+import static org.mockito.Mockito.*;
 
 @RunWith(MockitoJUnitRunner.class)
 public class PlayerControllerTest {
@@ -52,7 +49,7 @@ public class PlayerControllerTest {
 		Player ben = new Player("ben", "cool", new Date(), 14);
 		List<Player> players = Lists.newArrayList(ben, joe);
 		
-		when(playerRepository.list()).thenReturn(players);
+		when(playerRepository.findAll()).thenReturn(players);
 		
 		Model model = new ExtendedModelMap();
 		String viewName = controller.findPlayers(model);

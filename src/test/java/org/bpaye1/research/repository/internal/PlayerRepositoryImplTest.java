@@ -1,18 +1,17 @@
 package org.bpaye1.research.repository.internal;
 
-import static org.hamcrest.Matchers.hasItem;
-import static org.hamcrest.Matchers.is;
-import static org.junit.Assert.assertThat;
-
-import java.util.List;
-
-import javax.inject.Inject;
-
 import org.bpaye1.research.AbstractDatabaseTest;
 import org.bpaye1.research.model.player.Player;
 import org.bpaye1.research.repository.PlayerRepository;
 import org.bpaye1.research.util.DateUtils;
 import org.junit.Test;
+
+import javax.inject.Inject;
+import java.util.List;
+
+import static org.hamcrest.Matchers.hasItem;
+import static org.hamcrest.Matchers.is;
+import static org.junit.Assert.assertThat;
 
 public class PlayerRepositoryImplTest extends AbstractDatabaseTest {
 	
@@ -44,7 +43,7 @@ public class PlayerRepositoryImplTest extends AbstractDatabaseTest {
 		Player maurice = repository.add(new Player("Richard", "Maurice", DateUtils.newDate(1945, 12, 12), 9));
 		Player henry = repository.add(new Player("Henry", "Maurice", DateUtils.newDate(1945, 12, 12), 12));
 		
-		List<Player> players = repository.list();
+		List<Player> players = repository.findAll();
 		assertThat(players, hasItem(maurice));
 		assertThat(players, hasItem(henry));
 	}

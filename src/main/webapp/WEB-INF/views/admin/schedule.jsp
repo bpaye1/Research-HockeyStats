@@ -19,7 +19,7 @@
 				</thead>
 				<tbody>
 					<c:forEach var="game" items="${schedule.games}">
-						<s:url var="gameUrl" value="/schedules/schedule/${schedule.id}/games/${game.id}" />
+						<s:url var="gameUrl" value="/admin/schedules/schedule/${schedule.id}/games/${game.id}" />
 						<tr>
 							<td>${game.date}</td>
 							<td>${game.time}</td>

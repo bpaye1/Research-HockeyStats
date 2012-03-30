@@ -15,7 +15,7 @@
 				</thead>
 				<tbody>
 					<c:forEach var="schedule" items="${schedules}">
-						<s:url var="scheduleUrl" value="/schedules/schedule/${schedule.id}" />
+						<s:url var="scheduleUrl" value="/admin/schedules/schedule/${schedule.id}" />
 						<tr>
 							<td>${schedule.description}</td>
 							<td>
