@@ -16,6 +16,7 @@ import java.util.List;
 import static org.hamcrest.Matchers.hasItem;
 import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertThat;
+import static org.mockito.Matchers.anyInt;
 import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
@@ -47,9 +48,16 @@ public class ScheduleControllerTest {
 
     @Test
     public void findSchedule() throws Exception {
+        Schedule winter2012 = new Schedule("Winter 2012", "B-League");
+        when(repository.find(anyInt())).thenReturn(winter2012);
+
         Model model = new ExtendedModelMap();
+
         String viewName = controller.findSchedule(1, model);
         assertThat(viewName, is("schedule"));
+
+        Schedule schedule = (Schedule)model.asMap().get("schedule");
+        assertThat(winter2012, is(schedule));
     }
 
     @Test

@@ -5,8 +5,19 @@
 <div class="container">
 	<div class="row">
 		<div class="span16">
-			<h3>Schedules</h3>
-			<table class="table table-striped table-bordered table-condensed">
+            <ul class="breadcrumb">
+                <li>
+                    <s:url var="homeUrl" value="/" />
+                    <a href="${homeUrl}">
+                        Admin Home
+                    </a>
+                    <span class="divider">/</span>
+                </li>
+                <li class="active">
+                    Schedules
+                </li>
+            </ul>
+            <table class="table table-striped table-bordered table-condensed">
 				<thead>
 					<tr>
 						<th class="span1">Description</th>

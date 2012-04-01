@@ -1,21 +1,12 @@
 package org.bpaye1.research.model.player;
 
-import java.util.Date;
+import org.hibernate.annotations.Type;
+import org.hibernate.validator.constraints.NotEmpty;
+import org.joda.time.LocalDate;
 
-import javax.persistence.Column;
-import javax.persistence.Embedded;
-import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
-
-import org.hibernate.validator.constraints.NotEmpty;
 
 @Entity
 @Table(name="PLAYER")
@@ -39,9 +30,9 @@ public class Player {
 	private String email;
 	
 	@NotNull
-    @Temporal(value=TemporalType.DATE)
 	@Column(name="DATE_OF_BIRTH")
-	private Date dateOfBirth;
+    @Type(type="org.jadira.usertype.dateandtime.joda.PersistentLocalDate")
+    private LocalDate dateOfBirth;
 	
 	@Embedded
 	private Address address;
@@ -67,8 +58,8 @@ public class Player {
 	public Player(){
 		this.status = Status.ACTIVE;
 	}
-	
-	public Player(String lastName, String firstName, Date dateOfBirth,
+
+	public Player(String lastName, String firstName, LocalDate dateOfBirth,
 			Integer jerseyNumber) {
 		this.lastName = lastName;
 		this.firstName = firstName;
@@ -101,11 +92,11 @@ public class Player {
 		this.email = email;
 	}
 
-	public Date getDateOfBirth() {
+	public LocalDate getDateOfBirth() {
 		return dateOfBirth;
 	}
 	
-	public void setDateOfBirth(Date dateOfBirth) {
+	public void setDateOfBirth(LocalDate dateOfBirth) {
 		this.dateOfBirth = dateOfBirth;
 	}
 	

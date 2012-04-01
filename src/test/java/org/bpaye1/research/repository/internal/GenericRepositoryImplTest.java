@@ -3,7 +3,7 @@ package org.bpaye1.research.repository.internal;
 import org.bpaye1.research.AbstractDatabaseTest;
 import org.bpaye1.research.model.player.Player;
 import org.bpaye1.research.repository.PlayerRepository;
-import org.bpaye1.research.util.DateUtils;
+import org.joda.time.LocalDate;
 import org.junit.Test;
 
 import javax.inject.Inject;
@@ -19,14 +19,14 @@ public class GenericRepositoryImplTest extends AbstractDatabaseTest{
 
     @Test
     public void add() throws Exception {
-        Player player = new Player("Richard", "Maurice", DateUtils.newDate(1945, 12, 12), 9);
+        Player player = new Player("Richard", "Maurice", new LocalDate(1945, 12, 12), 9);
         repository.add(player);
         assertThat(getEm().find(Player.class, player.getId()), is(player));
     }
 
     @Test
     public void update() throws Exception {
-        Player player = repository.add(new Player("Richard", "Maurice", DateUtils.newDate(1945, 12, 12), 9));
+        Player player = repository.add(new Player("Richard", "Maurice", new LocalDate(1945, 12, 12), 9));
         assertThat(player.getFirstName(), is("Maurice"));
 
         player.setFirstName("Moe");
@@ -39,7 +39,7 @@ public class GenericRepositoryImplTest extends AbstractDatabaseTest{
 
     @Test
     public void remove() throws Exception {
-        Player player = new Player("Richard", "Maurice", DateUtils.newDate(1945, 12, 12), 9);
+        Player player = new Player("Richard", "Maurice", new LocalDate(1945, 12, 12), 9);
         repository.add(player);
         Player persistedPlayer = getEm().find(Player.class, player.getId());
         assertThat(persistedPlayer, is(player));

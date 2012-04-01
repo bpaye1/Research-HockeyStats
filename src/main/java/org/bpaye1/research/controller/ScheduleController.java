@@ -18,6 +18,9 @@ public class ScheduleController {
 
     private ScheduleRepository repository;
 
+    protected ScheduleController(){
+    }
+
     @Inject
     public ScheduleController(ScheduleRepository repository) {
         this.repository = repository;
@@ -31,6 +34,7 @@ public class ScheduleController {
 	
 	@RequestMapping(value="/schedule/{id}", method=RequestMethod.GET)
 	public String findSchedule(@PathVariable Integer id, Model model){
+        model.addAttribute("schedule", repository.find(id));
 		return "schedule";
 	}
 	

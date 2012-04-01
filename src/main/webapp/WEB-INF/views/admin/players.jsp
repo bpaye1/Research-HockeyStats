@@ -5,7 +5,18 @@
 <div class="container">
 	<div class="row">
 		<div class="span16">
-			<h3>Players</h3>
+            <ul class="breadcrumb">
+                <li>
+                    <s:url var="homeUrl" value="/" />
+                    <a href="${homeUrl}">
+                        Admin Home
+                    </a>
+                    <span class="divider">/</span>
+                </li>
+                <li class="active">
+                    Players
+                </li>
+            </ul>
 			<table class="table table-striped table-bordered table-condensed">
 				<thead>
 					<tr>
@@ -17,7 +28,7 @@
 				</thead>
 				<tbody>
 					<c:forEach var="player" items="${players}">
-						<s:url var="playerUrl" value="/players/player/${player.id}" />
+						<s:url var="playerUrl" value="/admin/players/player/${player.id}" />
 						<tr>
 							<td>${player.jerseyNumber}</td>
 							<td>

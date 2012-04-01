@@ -1,16 +1,13 @@
 package org.bpaye1.research.model.schedule;
 
-import static org.hamcrest.Matchers.hasItem;
-import static org.hamcrest.Matchers.is;
-import static org.hamcrest.Matchers.not;
-import static org.junit.Assert.assertThat;
-
 import org.bpaye1.research.AbstractDatabaseTest;
 import org.bpaye1.research.model.player.Player;
-import org.bpaye1.research.util.DateUtils;
 import org.joda.time.LocalDate;
 import org.joda.time.LocalTime;
 import org.junit.Test;
+
+import static org.hamcrest.Matchers.*;
+import static org.junit.Assert.assertThat;
 
 public class SchedulePersistenceTest extends AbstractDatabaseTest {
 	
@@ -60,7 +57,7 @@ public class SchedulePersistenceTest extends AbstractDatabaseTest {
 	
 	@Test
 	public void persistGame() throws Exception {
-		Player joe = new Player("joe", "joe", DateUtils.newDate(1965,12,12), 88);
+		Player joe = new Player("joe", "joe", new LocalDate(1965,12,12), 88);
 		Schedule schedule = new Schedule("Fall 2012", "B-League");
 		Game game1 = new Game(schedule, new LocalDate(2012, 9, 23), new LocalTime(21, 30), "Chiefs");
 		game1.setBeverageDutyPlayer(joe);

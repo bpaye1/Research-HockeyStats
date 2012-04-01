@@ -4,6 +4,7 @@ import com.google.common.collect.Lists;
 import org.bpaye1.research.model.player.Player;
 import org.bpaye1.research.repository.PlayerRepository;
 import org.bpaye1.research.repository.StateRepository;
+import org.joda.time.LocalDate;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -14,7 +15,6 @@ import org.springframework.ui.ExtendedModelMap;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 
-import java.util.Date;
 import java.util.List;
 
 import static org.hamcrest.Matchers.hasItem;
@@ -45,8 +45,8 @@ public class PlayerControllerTest {
 	@SuppressWarnings("unchecked")
 	@Test
 	public void findPlayers() throws Exception {
-		Player joe = new Player("Howard", "joe", new Date(), 12);
-		Player ben = new Player("ben", "cool", new Date(), 14);
+		Player joe = new Player("Howard", "joe", new LocalDate(), 12);
+		Player ben = new Player("ben", "cool", new LocalDate(), 14);
 		List<Player> players = Lists.newArrayList(ben, joe);
 		
 		when(playerRepository.findAll()).thenReturn(players);
@@ -73,7 +73,7 @@ public class PlayerControllerTest {
 	
 	@Test
 	public void addPlayer_saveWhenNoBindingErrorsExist() throws Exception {
-		Player joe = new Player("Howard", "joe", new Date(), 12);
+		Player joe = new Player("Howard", "joe", new LocalDate(), 12);
 		
 		when(bindResult.hasErrors()).thenReturn(false);
 		
@@ -87,7 +87,7 @@ public class PlayerControllerTest {
 	
 	@Test
 	public void addPlayer_saveWhenBindingErrorsExist() throws Exception {
-		Player joe = new Player("Howard", "joe", new Date(), 12);
+		Player joe = new Player("Howard", "joe", new LocalDate(), 12);
 		
 		when(bindResult.hasErrors()).thenReturn(true);
 		
@@ -99,7 +99,7 @@ public class PlayerControllerTest {
 	
 	@Test
 	public void editPlayer_initialize() throws Exception {
-		Player ben = new Player("ben", "cool", new Date(), 14);
+		Player ben = new Player("ben", "cool", new LocalDate(), 14);
 		
 		when(playerRepository.find(anyLong())).thenReturn(ben);
 		
@@ -113,7 +113,7 @@ public class PlayerControllerTest {
 	
 	@Test
 	public void editPlayer_saveWhenNoBindingErrorsExist() throws Exception {
-		Player joe = new Player("Howard", "joe", new Date(), 12);
+		Player joe = new Player("Howard", "joe", new LocalDate(), 12);
 		
 		when(bindResult.hasErrors()).thenReturn(false);
 		
@@ -127,7 +127,7 @@ public class PlayerControllerTest {
 	
 	@Test
 	public void editPlayer_saveWhenBindingErrorsExist() throws Exception {
-		Player joe = new Player("Howard", "joe", new Date(), 12);
+		Player joe = new Player("Howard", "joe", new LocalDate(), 12);
 		
 		when(bindResult.hasErrors()).thenReturn(true);
 		

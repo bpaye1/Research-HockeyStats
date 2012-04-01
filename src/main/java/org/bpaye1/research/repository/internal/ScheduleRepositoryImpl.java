@@ -18,7 +18,7 @@ public class ScheduleRepositoryImpl extends GenericRepositoryImpl<Schedule, Inte
         return query.getResultList();
     }
 
-	public Schedule find(Integer id) {
+    public Schedule find(Integer id) {
         return em.find(Schedule.class, id);
-	}
+    }
 }

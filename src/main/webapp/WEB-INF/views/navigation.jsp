@@ -3,7 +3,7 @@
 <div class="navbar navbar-fixed-top">
 	<div class="navbar-inner">
         <div class="container">
-        	<s:url value="/" var="home_url" />
+          <s:url value="/" var="home_url" />
           <a class="brand" href="${home_url}">Hanson Brothers Hockey Club - Admin</a>
           <div class="nav-collapse">
             <ul class="nav">

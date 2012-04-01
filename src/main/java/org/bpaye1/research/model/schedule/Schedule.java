@@ -20,7 +20,7 @@ public class Schedule {
 	@Column(name="LEAGUE")
 	private String league;
 	
-	@OneToMany(cascade=CascadeType.ALL, mappedBy="schedule", orphanRemoval=true)
+	@OneToMany(cascade=CascadeType.ALL, mappedBy="schedule", orphanRemoval=true, fetch = FetchType.EAGER)
 	private List<Game> games = Lists.newArrayList();
 	
 	public Schedule(){

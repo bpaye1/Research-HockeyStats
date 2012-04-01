@@ -1,11 +1,11 @@
 package org.bpaye1.research.model.player;
 
+import org.bpaye1.research.AbstractDatabaseTest;
+import org.joda.time.LocalDate;
+import org.junit.Test;
+
 import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertThat;
-
-import org.bpaye1.research.AbstractDatabaseTest;
-import org.bpaye1.research.util.DateUtils;
-import org.junit.Test;
 
 public class PlayerPersistenceTest extends AbstractDatabaseTest {
 	
@@ -16,7 +16,7 @@ public class PlayerPersistenceTest extends AbstractDatabaseTest {
 		player.setLastName("Gretzky");
 		player.setEmail("wayne-gretzky@somemail.com");
 		player.setJerseyNumber(99);
-		player.setDateOfBirth(DateUtils.newDate(1965,12,12));
+		player.setDateOfBirth(new LocalDate(1965,12,12));
 		player.setPhoneNumber("9992225555");
 		player.setStatus(Status.ACTIVE);
 		player.setPosition(Position.CENTER);

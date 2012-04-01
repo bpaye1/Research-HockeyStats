@@ -23,7 +23,7 @@ import java.util.Date;
 
 @Transactional
 @Controller
-@RequestMapping(value="/admin")
+@RequestMapping(value="/admin/players")
 public class PlayerController{
 	
 	private PlayerRepository repository;
@@ -45,13 +45,13 @@ public class PlayerController{
 		binder.registerCustomEditor(Date.class, new CustomDateEditor(dateFormat, false));
 	}
 	
-	@RequestMapping(value="/players", method=RequestMethod.GET)
+	@RequestMapping(value="", method=RequestMethod.GET)
 	public String findPlayers(Model model){
 		model.addAttribute("players", repository.findAll());
 		return "players";
 	}
 	
-	@RequestMapping(value="/players/player", method=RequestMethod.GET)
+	@RequestMapping(value="/player", method=RequestMethod.GET)
 	public String addPlayer(Model model){
 		model.addAttribute("player", new Player());
 		model.addAttribute("positions", Position.values());
@@ -59,7 +59,7 @@ public class PlayerController{
 		return "player";
 	}
 	
-	@RequestMapping(value="/players/player", method=RequestMethod.POST)
+	@RequestMapping(value="/player", method=RequestMethod.POST)
 	public String addPlayer(@Valid Player player, BindingResult bindingResult){
 		if(bindingResult.hasErrors()){
 			return "player";
@@ -68,7 +68,7 @@ public class PlayerController{
 		return "redirect:/players/";
 	}
 	
-	@RequestMapping(value="/players/player/{id}", method=RequestMethod.GET)
+	@RequestMapping(value="/player/{id}", method=RequestMethod.GET)
 	public String editPlayer(@PathVariable Long id, Model model){
 		model.addAttribute("player", repository.find(Long.valueOf(id)));
 		model.addAttribute("states", stateRepository.findAll());
@@ -76,7 +76,7 @@ public class PlayerController{
 		return "player";
 	}
 	
-	@RequestMapping(value="/players/player/{id}", method=RequestMethod.POST)
+	@RequestMapping(value="/player/{id}", method=RequestMethod.POST)
 	public String editPlayer(@Valid Player player, BindingResult bindingResult){
 		if(bindingResult.hasErrors()){
 			return "player";

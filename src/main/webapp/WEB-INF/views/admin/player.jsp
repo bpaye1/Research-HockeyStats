@@ -3,7 +3,25 @@
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="sf" %>
 
 <div class="container" >
-	<h3>Add New Player</h3>
+    <ul class="breadcrumb">
+        <li>
+            <s:url var="homeUrl" value="/" />
+            <a href="${homeUrl}">
+                Admin Home
+            </a>
+            <span class="divider">/</span>
+        </li>
+        <li>
+           <s:url var="playersUrl" value="/admin/players/" />
+           <a href="${playersUrl}">
+               Players
+           </a>
+           <span class="divider">/</span>
+        </li>
+        <li class="active">
+            ${player.jerseyNumber} - ${player.firstName} ${player.lastName}
+        </li>
+    </ul>
 	<sf:form method="post" modelAttribute="player">
 		<fieldset class="well">
 			<table cellspacing="0">
@@ -115,7 +133,7 @@
 				</tr>
 			</table>	
 		</fieldset>
-		<input type="submit" name="Add" value="Add" class="btn-primary" />
+		<input type="submit" name="Save" value="Save" class="btn-primary" />
 		<input type="reset" name="Cancel" value="Cancel" />
 	</sf:form>
 </div>

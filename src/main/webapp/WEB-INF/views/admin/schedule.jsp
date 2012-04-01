@@ -5,8 +5,25 @@
 <div class="container">
 	<div class="row">
 		<div class="span8">
-			<h3>${schedule.description} - ${schedule.league} Schedule</h3>
-			<label>Description</label>
+            <ul class="breadcrumb">
+                <li>
+                    <s:url var="homeUrl" value="/" />
+                    <a href="${homeUrl}">
+                        Admin Home
+                    </a>
+                    <span class="divider">/</span>
+                </li>
+                <li>
+                    <s:url var="schedulesUrl" value="/admin/schedules/" />
+                    <a href="${schedulesUrl}">
+                        Schedules
+                    </a>
+                    <span class="divider">/</span>
+                </li>
+                <li class="active">
+                    ${schedule.description} - ${schedule.league} Schedule
+                </li>
+            </ul>
 			<table class="table table-striped table-bordered table-condensed">
 				<thead>
 					<tr>
