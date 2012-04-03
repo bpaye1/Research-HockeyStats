@@ -21,7 +21,14 @@
                <span class="divider">/</span>
             </li>
             <li class="active">
-                ${player.jerseyNumber} - ${player.firstName} ${player.lastName}
+                <c:choose>
+                    <c:when test="${player.id != null}">
+                        ${player.jerseyNumber} - ${player.firstName} ${player.lastName}
+                    </c:when>
+                    <c:otherwise>
+                        New Player
+                    </c:otherwise>
+                </c:choose>
             </li>
         </ul>
     </div>

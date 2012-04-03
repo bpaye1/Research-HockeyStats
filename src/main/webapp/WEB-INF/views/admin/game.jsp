@@ -2,6 +2,12 @@
 <%@ taglib uri="http://www.springframework.org/tags" prefix="s" %>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="sf" %>
 
+<script type="text/javascript">
+    $(function(){
+        $("#datePicker").datepicker();
+    });
+</script>
+
 <div class="container">
     <ul class="breadcrumb">
         <li>
@@ -37,7 +43,7 @@
                         <label>Date:</label>
                     </td>
                     <td>
-                        <sf:input path="date" cssClass="input-small" />
+                        <sf:input id="datePicker" path="date" cssClass="input-small" />
                     </td>
                 </tr>
                 <tr>
