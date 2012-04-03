@@ -46,6 +46,10 @@ public class Game {
 	
 	protected Game(){
 	}
+
+    public Game(Schedule schedule){
+        this.schedule = schedule;
+    }
 	
 	public Game(Schedule schedule, LocalDate date, LocalTime time, String opponent) {
 		this.schedule = schedule;

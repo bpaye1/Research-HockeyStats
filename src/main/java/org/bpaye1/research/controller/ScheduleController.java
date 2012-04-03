@@ -1,5 +1,6 @@
 package org.bpaye1.research.controller;
 
+import org.bpaye1.research.model.schedule.Game;
 import org.bpaye1.research.model.schedule.Schedule;
 import org.bpaye1.research.repository.ScheduleRepository;
 import org.springframework.stereotype.Controller;
@@ -43,5 +44,12 @@ public class ScheduleController {
 		model.addAttribute("schedule", new Schedule());
 		return "new-schedule";
 	}
+
+    @RequestMapping(value="schedule/{id}/game", method = RequestMethod.GET)
+    public String newGame(@PathVariable Integer id, Model model){
+        Schedule schedule = repository.find(id);
+        model.addAttribute("game", new Game(schedule));
+        return "new-schedule-game";
+    }
 
 }

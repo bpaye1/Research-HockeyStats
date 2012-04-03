@@ -37,6 +37,10 @@
 		<put-attribute name="content" value="/WEB-INF/views/admin/new-schedule.jsp" />
 		<put-attribute name="title" value="New Schedule" />
 	</definition>
-	
+
+    <definition name="new-schedule-game" extends="template">
+        <put-attribute name="content" value="/WEB-INF/views/admin/game.jsp" />
+        <put-attribute name="title" value="New Game" />
+    </definition>
 	
 </tiles-definitions>
