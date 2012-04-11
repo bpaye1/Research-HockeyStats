@@ -1,8 +1,11 @@
 package org.bpaye1.research.controller;
 
 import com.google.common.collect.Lists;
+import org.bpaye1.research.model.schedule.Game;
 import org.bpaye1.research.model.schedule.Schedule;
 import org.bpaye1.research.repository.ScheduleRepository;
+import org.joda.time.LocalDate;
+import org.joda.time.LocalTime;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -17,6 +20,7 @@ import static org.hamcrest.Matchers.hasItem;
 import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertThat;
 import static org.mockito.Matchers.anyInt;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
@@ -65,5 +69,14 @@ public class ScheduleControllerTest {
         Model model = new ExtendedModelMap();
         String viewName = controller.newSchedule(model);
         assertThat(viewName, is("new-schedule"));
+    }
+
+    @Test
+    public void addGame() throws Exception {
+        Schedule winter2012 = new Schedule("Winter 2012", "B-League");
+        Game game1 = new Game(winter2012, new LocalDate(2012, 04, 12), new LocalTime(21,30), "Chiefs");
+        String viewName = controller.saveNewGame(game1);
+        assertThat(viewName, is("redirect:/schedule/null/"));
+        verify(repository).update(winter2012);
     }
 }

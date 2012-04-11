@@ -5,6 +5,7 @@
 <script type="text/javascript">
     $(function(){
         $("#datePicker").datepicker();
+        $("#timePicker").timepicker();
     });
 </script>
 
@@ -51,7 +52,7 @@
                         <label>Time:</label>
                     </td>
                     <td>
-                        <sf:input path="time" cssClass="input-small" />
+                        <sf:input id="timePicker" path="time" cssClass="input-small" />
                     </td>
                 </tr>
                 <tr>

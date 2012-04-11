@@ -52,4 +52,9 @@ public class ScheduleController {
         return "new-schedule-game";
     }
 
+    @RequestMapping(value="schedule/{id}/game", method = RequestMethod.POST)
+    public String saveNewGame(Game game){
+        repository.update(game.getSchedule());
+        return "redirect:/schedule/" + game.getSchedule().getId() + "/";    }
+
 }

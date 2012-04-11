@@ -78,7 +78,7 @@ public class PlayerControllerTest {
 		when(bindResult.hasErrors()).thenReturn(false);
 		
 		String viewName = controller.addPlayer(joe, bindResult);
-		assertThat(viewName, is("redirect:/players/"));
+		assertThat(viewName, is("redirect:/admin/players/"));
 		
 		ArgumentCaptor<Player> argument = ArgumentCaptor.forClass(Player.class);
 		verify(playerRepository).add(argument.capture());
@@ -118,7 +118,7 @@ public class PlayerControllerTest {
 		when(bindResult.hasErrors()).thenReturn(false);
 		
 		String viewName = controller.editPlayer(joe, bindResult);
-		assertThat(viewName, is("redirect:/players/"));
+		assertThat(viewName, is("redirect:/admin/players/"));
 		
 		ArgumentCaptor<Player> argument = ArgumentCaptor.forClass(Player.class);
 		verify(playerRepository).update(argument.capture());

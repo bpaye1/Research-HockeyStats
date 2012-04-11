@@ -3,6 +3,7 @@ package org.bpaye1.research.model.player;
 import org.hibernate.annotations.Type;
 import org.hibernate.validator.constraints.NotEmpty;
 import org.joda.time.LocalDate;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -17,15 +18,15 @@ public class Player {
 	@Column(name="ID")
 	private Long id;
 	
-	@NotEmpty(message="Last Name is required.")
+	@NotEmpty()
 	@Column(name="LAST_NAME")
 	private String lastName;
 	
-	@NotEmpty(message="First Name is required.")
+	@NotEmpty()
 	@Column(name="FIRST_NAME")
 	private String firstName;
 	
-	@Pattern(regexp="[A-Za-z0-9._%=-]+@[A-za-z0-9.-]+\\.[A-Za-z]{2,4}", message="Invalid email address")
+	@Pattern(regexp="[A-Za-z0-9._%=-]+@[A-za-z0-9.-]+\\.[A-Za-z]{2,4}")
 	@Column(name="EMAIL")
 	private String email;
 	
@@ -40,7 +41,7 @@ public class Player {
 	@Column(name="PHONE_NUMBER")
 	private String phoneNumber;
 	
-	@NotNull(message="Jersey Number is required.")
+	@NotNull()
 	@Column(name="JERSEY_NUMBER")
 	private Integer jerseyNumber;
 	

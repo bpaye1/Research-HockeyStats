@@ -9,7 +9,8 @@
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
 	<script src="http://twitter.github.com/bootstrap/assets/js/bootstrap-dropdown.js"></script>
     <script src="<c:url value="/resources/plugins/jquery/js/jquery-ui-1.8.18.custom.min.js" />"></script>
-</head> 
+    <script src="<c:url value="/resources/plugins/timepicker/jquery.ui.timepicker.js" />"></script>
+</head>
 <body>
 	<div style="margin-bottom: 50px">
 		<tiles:insertAttribute name="top" />

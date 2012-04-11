@@ -7,6 +7,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.Future;
 
 import org.bpaye1.research.model.player.Player;
 import org.hibernate.annotations.Type;
@@ -25,7 +26,8 @@ public class Game {
 	@ManyToOne
 	@JoinColumn(name="SCHEDULE_ID")
 	private Schedule schedule;
-	
+
+    @Future
 	@Type(type="org.jadira.usertype.dateandtime.joda.PersistentLocalDate")
 	@Column(name="GAME_DATE")
 	private LocalDate date;
