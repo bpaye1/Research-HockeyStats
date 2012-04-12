@@ -73,6 +73,14 @@
                 </tr>
                 <tr>
                     <td>
+                        <label>Location</label>
+                    </td>
+                    <td>
+                        <sf:input path="location" cssClass="input-medium" />
+                    </td>
+                </tr>
+                <tr>
+                    <td>
                         <label>Beverage Duty</label>
                     </td>
                     <td>

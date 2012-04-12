@@ -2,5 +2,8 @@
 
 import org.bpaye1.research.model.player.Player;
 
-public interface PlayerRepository extends GenericRepository<Player, Long>{
-}
+import java.util.List;
+
+    public interface PlayerRepository extends GenericRepository<Player, Long>{
+        List<Player> findAllActive();
+    }

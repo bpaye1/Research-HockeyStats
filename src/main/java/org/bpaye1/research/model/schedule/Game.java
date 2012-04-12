@@ -1,18 +1,14 @@
 package org.bpaye1.research.model.schedule;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
-import javax.validation.constraints.Future;
-
 import org.bpaye1.research.model.player.Player;
 import org.hibernate.annotations.Type;
+import org.hibernate.validator.constraints.NotEmpty;
 import org.joda.time.LocalDate;
 import org.joda.time.LocalTime;
+
+import javax.persistence.*;
+import javax.validation.constraints.Future;
+import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name="GAME")
@@ -22,26 +18,36 @@ public class Game {
 	@GeneratedValue
 	@Column(name="ID")
 	private Long id;
-	
+
+    @NotNull
 	@ManyToOne
 	@JoinColumn(name="SCHEDULE_ID")
 	private Schedule schedule;
 
+    @NotNull
     @Future
 	@Type(type="org.jadira.usertype.dateandtime.joda.PersistentLocalDate")
 	@Column(name="GAME_DATE")
 	private LocalDate date;
-	
+
+    @NotNull
 	@Type(type="org.jadira.usertype.dateandtime.joda.PersistentLocalTime")
 	@Column(name="GAME_TIME")
 	private LocalTime time;
-	
+
+    @NotEmpty
 	@Column(name="OPPONENT")
 	private String opponent;
-	
-	@Column(name="HOME_OR_AWAY")
-	private String homeOrAway;
-	
+
+    @NotNull
+    @Enumerated(EnumType.STRING)
+    @Column(name="HOME_OR_AWAY")
+	private HomeOrAway homeOrAway;
+
+    @NotEmpty
+    @Column(name="LOCATION")
+	private String location;
+
 	@ManyToOne
 	@JoinColumn(name="PLAYER_ON_BEVARAGE_DUTY")
 	private Player beverageDutyPlayer;
@@ -53,12 +59,14 @@ public class Game {
         this.schedule = schedule;
     }
 	
-	public Game(Schedule schedule, LocalDate date, LocalTime time, String opponent) {
+	public Game(Schedule schedule, LocalDate date, LocalTime time, String opponent, HomeOrAway homeOrAway, String location) {
 		this.schedule = schedule;
 		this.schedule.addGame(this);
 		this.date = date;
 		this.time = time;
 		this.opponent = opponent;
+        this.homeOrAway = homeOrAway;
+        this.location = location;
 	}
 
 	public Schedule getSchedule() {
@@ -93,11 +101,19 @@ public class Game {
 		this.opponent = opponent;
 	}
 
-	public String getHomeOrAway() {
-		return homeOrAway;
-	}
+    public String getLocation() {
+        return location;
+    }
 
-	public void setHomeOrAway(String homeOrAway) {
+    public void setLocation(String location) {
+        this.location = location;
+    }
+
+    public HomeOrAway getHomeOrAway() {
+        return homeOrAway;
+    }
+
+    public void setHomeOrAway(HomeOrAway homeOrAway) {
 		this.homeOrAway = homeOrAway;
 	}
 

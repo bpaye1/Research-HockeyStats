@@ -7,6 +7,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Past;
 import javax.validation.constraints.Pattern;
 
 @Entity
@@ -31,6 +32,8 @@ public class Player {
 	private String email;
 	
 	@NotNull
+    @DateTimeFormat(pattern = "MM-dd-yyyy")
+    @Past
 	@Column(name="DATE_OF_BIRTH")
     @Type(type="org.jadira.usertype.dateandtime.joda.PersistentLocalDate")
     private LocalDate dateOfBirth;

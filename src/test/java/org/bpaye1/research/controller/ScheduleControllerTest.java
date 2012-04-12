@@ -1,8 +1,11 @@
 package org.bpaye1.research.controller;
 
 import com.google.common.collect.Lists;
+import org.bpaye1.research.model.player.Player;
 import org.bpaye1.research.model.schedule.Game;
+import org.bpaye1.research.model.schedule.HomeOrAway;
 import org.bpaye1.research.model.schedule.Schedule;
+import org.bpaye1.research.repository.PlayerRepository;
 import org.bpaye1.research.repository.ScheduleRepository;
 import org.joda.time.LocalDate;
 import org.joda.time.LocalTime;
@@ -29,11 +32,14 @@ public class ScheduleControllerTest {
     @Mock
     private ScheduleRepository repository;
 
+    @Mock
+    private PlayerRepository playerRepository;
+
     private ScheduleController controller;
 
     @Before
     public void setUp(){
-        controller = new ScheduleController(repository);
+        controller = new ScheduleController(repository, playerRepository);
     }
 
     @Test
@@ -72,9 +78,33 @@ public class ScheduleControllerTest {
     }
 
     @Test
-    public void addGame() throws Exception {
+    public void newGame() throws Exception {
+        Model model = new ExtendedModelMap();
+
         Schedule winter2012 = new Schedule("Winter 2012", "B-League");
-        Game game1 = new Game(winter2012, new LocalDate(2012, 04, 12), new LocalTime(21,30), "Chiefs");
+        when(repository.find(anyInt())).thenReturn(winter2012);
+
+        Player joe = new Player("Howard", "joe", new LocalDate(), 12);
+        Player ben = new Player("ben", "cool", new LocalDate(), 14);
+        when(playerRepository.findAllActive()).thenReturn(Lists.newArrayList(ben, joe));
+
+        String viewName = controller.newGame(1, model);
+        assertThat(viewName, is("new-schedule-game"));
+
+        Game game = (Game) model.asMap().get("game");
+        assertThat(game.getSchedule(), is(winter2012));
+
+        assertThat(model.containsAttribute("homeOrAway"), is(true));
+
+        List<Player> players = (List<Player>) model.asMap().get("players");
+        assertThat(players, hasItem(joe));
+        assertThat(players, hasItem(ben));
+    }
+
+    @Test
+    public void saveNewGame() throws Exception {
+        Schedule winter2012 = new Schedule("Winter 2012", "B-League");
+        Game game1 = new Game(winter2012, new LocalDate(2012, 04, 12), new LocalTime(21,30), "Chiefs", HomeOrAway.AWAY, "Reunion Arena");
         String viewName = controller.saveNewGame(game1);
         assertThat(viewName, is("redirect:/schedule/null/"));
         verify(repository).update(winter2012);

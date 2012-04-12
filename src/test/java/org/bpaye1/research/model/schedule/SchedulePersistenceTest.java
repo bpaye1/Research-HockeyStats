@@ -24,8 +24,8 @@ public class SchedulePersistenceTest extends AbstractDatabaseTest {
 	@Test
 	public void addGameToSchedule() throws Exception {
 		Schedule schedule = new Schedule("Fall 2012", "B-League");
-		Game game1 = new Game(schedule, new LocalDate(2012, 9, 23), new LocalTime(21, 30), "Chiefs");
-		Game game2 = new Game(schedule, new LocalDate(2012, 9, 27), new LocalTime(21, 30), "Flyers");
+		Game game1 = new Game(schedule, new LocalDate(2012, 9, 23), new LocalTime(21, 30), "Chiefs", HomeOrAway.AWAY, "Random Arena");
+		Game game2 = new Game(schedule, new LocalDate(2012, 9, 27), new LocalTime(21, 30), "Flyers", HomeOrAway.HOME, "Random Arena");
 		persist(schedule);
 		
 		Schedule persistedSchedule = getEm().find(Schedule.class, schedule.getId());
@@ -36,8 +36,8 @@ public class SchedulePersistenceTest extends AbstractDatabaseTest {
 	@Test
 	public void removeGameFromSchedule() throws Exception {
 		Schedule schedule = new Schedule("Fall 2012", "B-League");
-		Game game1 = new Game(schedule, new LocalDate(2012, 9, 23), new LocalTime(21, 30), "Chiefs");
-		Game game2 = new Game(schedule, new LocalDate(2012, 9, 27), new LocalTime(21, 30), "Flyers");
+		Game game1 = new Game(schedule, new LocalDate(2012, 9, 23), new LocalTime(21, 30), "Chiefs", HomeOrAway.HOME, "Random Arena");
+		Game game2 = new Game(schedule, new LocalDate(2012, 9, 27), new LocalTime(21, 30), "Flyers", HomeOrAway.AWAY, "Random Arena");
 		
 		persist(schedule);
 		
@@ -59,10 +59,9 @@ public class SchedulePersistenceTest extends AbstractDatabaseTest {
 	public void persistGame() throws Exception {
 		Player joe = new Player("joe", "joe", new LocalDate(1965,12,12), 88);
 		Schedule schedule = new Schedule("Fall 2012", "B-League");
-		Game game1 = new Game(schedule, new LocalDate(2012, 9, 23), new LocalTime(21, 30), "Chiefs");
+		Game game1 = new Game(schedule, new LocalDate(2012, 9, 23), new LocalTime(21, 30), "Chiefs", HomeOrAway.AWAY, "Random Arena");
 		game1.setBeverageDutyPlayer(joe);
-		game1.setHomeOrAway("AWAY");
-		
+
 		getEm().persist(joe);
 		getEm().persist(schedule);
 		getEm().flush();
@@ -75,5 +74,6 @@ public class SchedulePersistenceTest extends AbstractDatabaseTest {
 		assertThat(persistedGame.getSchedule(), is(schedule));
 		assertThat(persistedGame.getHomeOrAway(), is(game1.getHomeOrAway()));
 		assertThat(persistedGame.getBeverageDutyPlayer(), is(joe));
+        assertThat(persistedGame.getLocation(), is(game1.getLocation()));
 	}
 }

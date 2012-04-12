@@ -1,7 +1,9 @@
 package org.bpaye1.research.controller;
 
 import org.bpaye1.research.model.schedule.Game;
+import org.bpaye1.research.model.schedule.HomeOrAway;
 import org.bpaye1.research.model.schedule.Schedule;
+import org.bpaye1.research.repository.PlayerRepository;
 import org.bpaye1.research.repository.ScheduleRepository;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
@@ -18,13 +20,15 @@ import javax.inject.Inject;
 public class ScheduleController {
 
     private ScheduleRepository repository;
+    private PlayerRepository playerRepository;
 
     protected ScheduleController(){
     }
 
     @Inject
-    public ScheduleController(ScheduleRepository repository) {
+    public ScheduleController(ScheduleRepository repository, PlayerRepository playerRepository) {
         this.repository = repository;
+        this.playerRepository = playerRepository;
     }
 
     @RequestMapping(value = "", method=RequestMethod.GET)
@@ -48,6 +52,8 @@ public class ScheduleController {
     @RequestMapping(value="schedule/{id}/game", method = RequestMethod.GET)
     public String newGame(@PathVariable Integer id, Model model){
         Schedule schedule = repository.find(id);
+        model.addAttribute("players", playerRepository.findAllActive());
+        model.addAttribute("homeOrAway", HomeOrAway.values());
         model.addAttribute("game", new Game(schedule));
         return "new-schedule-game";
     }
