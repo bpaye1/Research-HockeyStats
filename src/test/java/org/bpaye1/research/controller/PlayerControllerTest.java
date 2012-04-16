@@ -1,10 +1,14 @@
 package org.bpaye1.research.controller;
 
 import com.google.common.collect.Lists;
+import org.bpaye1.research.controller.editor.internal.CustomEditorFactoryImpl;
+import org.bpaye1.research.controller.editor.LocalDateCustomEditor;
+import org.bpaye1.research.controller.editor.Pattern;
 import org.bpaye1.research.model.player.Player;
 import org.bpaye1.research.repository.PlayerRepository;
 import org.bpaye1.research.repository.StateRepository;
 import org.joda.time.LocalDate;
+import org.joda.time.format.DateTimeFormat;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -14,7 +18,9 @@ import org.mockito.runners.MockitoJUnitRunner;
 import org.springframework.ui.ExtendedModelMap;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.ServletRequestDataBinder;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 import static org.hamcrest.Matchers.hasItem;
@@ -22,6 +28,7 @@ import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertThat;
 import static org.mockito.Matchers.anyLong;
 import static org.mockito.Mockito.*;
+
 
 @RunWith(MockitoJUnitRunner.class)
 public class PlayerControllerTest {
@@ -31,6 +38,9 @@ public class PlayerControllerTest {
 	
 	@Mock
 	StateRepository stateRepository;
+
+    @Mock
+    CustomEditorFactoryImpl customEditorFactory;
 	
 	@Mock
 	BindingResult bindResult;
@@ -39,10 +49,21 @@ public class PlayerControllerTest {
 	
 	@Before
 	public void setUp(){
-		controller = new PlayerController(playerRepository, stateRepository);
+		controller = new PlayerController(playerRepository, stateRepository, customEditorFactory);
 	}
-	
-	@SuppressWarnings("unchecked")
+
+    @Test
+    public void initBinder() throws Exception {
+        HttpServletRequest request = mock(HttpServletRequest.class);
+        ServletRequestDataBinder dataBinder = mock(ServletRequestDataBinder.class);
+        LocalDateCustomEditor locaDateCustomEditor = new LocalDateCustomEditor(DateTimeFormat.forPattern(Pattern.localDate()));
+        when(customEditorFactory.createLocalDateCustomEditor()).thenReturn(locaDateCustomEditor);
+        controller.initBinder(request, dataBinder);
+        verify(customEditorFactory).createLocalDateCustomEditor();
+        verify(dataBinder).registerCustomEditor(LocalDate.class, locaDateCustomEditor);
+    }
+
+    @SuppressWarnings("unchecked")
 	@Test
 	public void findPlayers() throws Exception {
 		Player joe = new Player("Howard", "joe", new LocalDate(), 12);

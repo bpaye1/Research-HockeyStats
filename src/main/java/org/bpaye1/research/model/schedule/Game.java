@@ -5,6 +5,7 @@ import org.hibernate.annotations.Type;
 import org.hibernate.validator.constraints.NotEmpty;
 import org.joda.time.LocalDate;
 import org.joda.time.LocalTime;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import javax.validation.constraints.Future;
@@ -19,14 +20,14 @@ public class Game {
 	@Column(name="ID")
 	private Long id;
 
-    @NotNull
 	@ManyToOne
 	@JoinColumn(name="SCHEDULE_ID")
 	private Schedule schedule;
 
     @NotNull
     @Future
-	@Type(type="org.jadira.usertype.dateandtime.joda.PersistentLocalDate")
+    @DateTimeFormat(pattern = "MM-dd-yyyy")
+    @Type(type="org.jadira.usertype.dateandtime.joda.PersistentLocalDate")
 	@Column(name="GAME_DATE")
 	private LocalDate date;
 
@@ -52,7 +53,7 @@ public class Game {
 	@JoinColumn(name="PLAYER_ON_BEVARAGE_DUTY")
 	private Player beverageDutyPlayer;
 	
-	protected Game(){
+	public Game(){
 	}
 
     public Game(Schedule schedule){

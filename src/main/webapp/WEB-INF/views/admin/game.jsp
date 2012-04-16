@@ -68,7 +68,10 @@
                         <label>Home/Away</label>
                     </td>
                     <td>
-                        <sf:select path="homeOrAway" cssClass="input-small" />
+                        <sf:select path="homeOrAway" cssClass="input-small">
+                            <sf:option value="" label="select" />
+                            <sf:options items="${homeOrAway}" itemLabel="description" />
+                        </sf:select>
                     </td>
                 </tr>
                 <tr>
@@ -84,7 +87,10 @@
                         <label>Beverage Duty</label>
                     </td>
                     <td>
-                        <sf:select path="beverageDutyPlayer" cssClass="input-medium"/>
+                        <sf:select path="beverageDutyPlayer" cssClass="input-medium">
+                            <sf:option value="" label="select" />
+                            <sf:options items="${players}" itemValue="id" itemLabel="fullName" />
+                        </sf:select>
                     </td>
                 </tr>
             </table>

@@ -60,7 +60,8 @@ public class Schedule {
 	}
 		
 	public Game addGame(Game game){
-		games.add(game);
+        game.setSchedule(this);
+        games.add(game);
 		return game;
 	}
 	

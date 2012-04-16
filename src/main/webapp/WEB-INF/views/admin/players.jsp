@@ -43,7 +43,7 @@
                             <td>${player.jerseyNumber}</td>
                             <td>
                                 <a href="${playerUrl}">
-                                        ${player.firstName} ${player.lastName}
+                                   ${player.fullName}
                                 </a>
                             </td>
                             <td>${player.position}</td>

@@ -9,7 +9,7 @@ public enum HomeOrAway {
         this.description = description;
     }
 
-    private String getDescription(){
+    public String getDescription(){
         return description;
     }
 }

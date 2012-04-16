@@ -1,13 +1,11 @@
 package org.bpaye1.research.controller;
 
-import org.bpaye1.research.controller.editor.LocalDateCustomEditor;
+import org.bpaye1.research.controller.editor.CustomEditorFactory;
 import org.bpaye1.research.model.player.Player;
 import org.bpaye1.research.model.player.Position;
 import org.bpaye1.research.repository.PlayerRepository;
 import org.bpaye1.research.repository.StateRepository;
 import org.joda.time.LocalDate;
-import org.joda.time.format.DateTimeFormat;
-import org.joda.time.format.DateTimeFormatter;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
@@ -25,27 +23,28 @@ import javax.validation.Valid;
 @Transactional
 @Controller
 @RequestMapping(value="/admin/players")
-public class PlayerController{
+public class    PlayerController{
 	
 	private PlayerRepository repository;
 	private StateRepository stateRepository;
+    private CustomEditorFactory customEditorFactory;
 	
 	protected PlayerController(){
 	}
 	
 	@Inject
-	public PlayerController(PlayerRepository repository,StateRepository stateRepository) {
+	public PlayerController(PlayerRepository repository, StateRepository stateRepository,
+                                CustomEditorFactory customEditorFactory) {
 		this.repository = repository;
 		this.stateRepository = stateRepository;
+        this.customEditorFactory = customEditorFactory;
 	}
 
 	@InitBinder
 	protected void initBinder(HttpServletRequest request, ServletRequestDataBinder binder) {
-        DateTimeFormatter dateTimeFormat = DateTimeFormat.forPattern("MM-dd-yyyy");
-		binder.registerCustomEditor(LocalDate.class, new LocalDateCustomEditor(dateTimeFormat));
+		binder.registerCustomEditor(LocalDate.class, customEditorFactory.createLocalDateCustomEditor());
 	}
 
-	
 	@RequestMapping(value="", method=RequestMethod.GET)
 	public String findPlayers(Model model){
 		model.addAttribute("players", repository.findAll());
