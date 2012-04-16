@@ -45,6 +45,7 @@
                     </td>
                     <td>
                         <sf:input id="datePicker" path="date" cssClass="input-small" />
+                        <sf:errors path="date" cssClass="alert-error" />
                     </td>
                 </tr>
                 <tr>
@@ -53,6 +54,7 @@
                     </td>
                     <td>
                         <sf:input id="timePicker" path="time" cssClass="input-small" />
+                        <sf:errors path="time" cssClass="alert-error" />
                     </td>
                 </tr>
                 <tr>
@@ -61,6 +63,7 @@
                     </td>
                     <td>
                         <sf:input path="opponent" cssClass="input-medium" />
+                        <sf:errors path="opponent" cssClass="alert-error" />
                     </td>
                 </tr>
                 <tr>
@@ -69,7 +72,7 @@
                     </td>
                     <td>
                         <sf:select path="homeOrAway" cssClass="input-small">
-                            <sf:option value="" label="select" />
+                            <sf:option value="" label="Select" />
                             <sf:options items="${homeOrAway}" itemLabel="description" />
                         </sf:select>
                     </td>
@@ -88,9 +91,10 @@
                     </td>
                     <td>
                         <sf:select path="beverageDutyPlayer" cssClass="input-medium">
-                            <sf:option value="" label="select" />
+                            <sf:option value="" label="Select" />
                             <sf:options items="${players}" itemValue="id" itemLabel="fullName" />
                         </sf:select>
+                        <sf:errors path="beverageDutyPlayer" cssClass="alert-error" />
                     </td>
                 </tr>
             </table>

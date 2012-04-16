@@ -20,6 +20,7 @@ public class Game {
 	@Column(name="ID")
 	private Long id;
 
+    @NotNull
 	@ManyToOne
 	@JoinColumn(name="SCHEDULE_ID")
 	private Schedule schedule;

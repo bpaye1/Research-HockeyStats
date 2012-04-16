@@ -1,5 +1,6 @@
 package org.bpaye1.research.controller.editor;
 
+import org.apache.commons.lang.StringUtils;
 import org.bpaye1.research.model.player.Player;
 import org.bpaye1.research.repository.PlayerRepository;
 
@@ -16,7 +17,12 @@ public class PlayerCustomEditor extends PropertyEditorSupport {
     @Override
     public void setAsText(String text) throws IllegalArgumentException {
         try {
-            setValue(repository.find(Long.valueOf(text)));
+            if(StringUtils.isEmpty(text)){
+                setValue(null);
+            }
+            else{
+                setValue(repository.find(Long.valueOf(text)));
+            }
         }
         catch (IllegalArgumentException ex) {
             throw new IllegalArgumentException("Could not parse player: " + ex.getMessage(), ex);
@@ -26,6 +32,6 @@ public class PlayerCustomEditor extends PropertyEditorSupport {
     @Override
     public String getAsText() {
         Player value = (Player) getValue();
-        return (value != null ? String.valueOf(value.getId()) : "");
+        return (value != null ? String.valueOf(value.getFullName()) : "");
     }
 }

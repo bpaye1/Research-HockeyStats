@@ -3,6 +3,7 @@ package org.bpaye1.research.controller.editor;
 import org.apache.commons.lang.StringUtils;
 import org.bpaye1.research.model.player.Player;
 import org.bpaye1.research.repository.PlayerRepository;
+import org.hamcrest.core.IsNull;
 import org.joda.time.LocalDate;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -28,10 +29,15 @@ public class PlayerCustomEditorTest {
         when(repository.find(playerId)).thenReturn(player);
 
         PlayerCustomEditor customEditor = new PlayerCustomEditor(repository);
-
         customEditor.setAsText(String.valueOf(playerId));
-
         assertThat((Player) customEditor.getValue(), is(player));
+    }
+
+    @Test
+    public void setAsText_shouldSetValueToNullWhenValueisEmpty() throws Exception {
+        PlayerCustomEditor customEditor = new PlayerCustomEditor(repository);
+        customEditor.setAsText(String.valueOf(StringUtils.EMPTY));
+        assertThat(customEditor.getValue(), is(IsNull.nullValue()));
     }
 
     @Test(expected = IllegalArgumentException.class)
@@ -40,10 +46,11 @@ public class PlayerCustomEditorTest {
         customEditor.setAsText("adsasd11");
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void setAsText_shouldFailWhenParsingANullPlayerId() throws Exception {
         PlayerCustomEditor customEditor = new PlayerCustomEditor(repository);
         customEditor.setAsText(null);
+        assertThat(customEditor.getAsText(), is(StringUtils.EMPTY));
     }
 
     @Test
@@ -58,7 +65,7 @@ public class PlayerCustomEditorTest {
         customEditor.setAsText(String.valueOf(playerId));
 
         assertThat((Player) customEditor.getValue(), is(player));
-        assertThat(customEditor.getAsText(), is(String.valueOf(playerId)));
+        assertThat(customEditor.getAsText(), is(player.getFullName()));
     }
 
     @Test

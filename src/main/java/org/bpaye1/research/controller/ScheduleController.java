@@ -14,16 +14,14 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.ServletRequestDataBinder;
-import org.springframework.web.bind.annotation.InitBinder;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 @RequestMapping(value="/admin/schedules")
+@SessionAttributes({"homeOrAway", "players"})
 @Transactional
 @Controller
 public class ScheduleController {
@@ -69,10 +67,11 @@ public class ScheduleController {
 	}
 
     @RequestMapping(value="schedule/{id}/game", method = RequestMethod.GET)
-    public String newGame(Model model){
+    public String newGame(@PathVariable("id") Integer scheduleId, Model model){
+        Schedule schedule = repository.find(scheduleId);
         model.addAttribute("players", playerRepository.findAllActive());
         model.addAttribute("homeOrAway", HomeOrAway.values());
-        model.addAttribute("game", new Game());
+        model.addAttribute("game", new Game(schedule));
         return "new-schedule-game";
     }
 

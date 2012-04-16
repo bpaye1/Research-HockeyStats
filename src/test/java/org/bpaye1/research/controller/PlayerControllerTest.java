@@ -56,11 +56,11 @@ public class PlayerControllerTest {
     public void initBinder() throws Exception {
         HttpServletRequest request = mock(HttpServletRequest.class);
         ServletRequestDataBinder dataBinder = mock(ServletRequestDataBinder.class);
-        LocalDateCustomEditor locaDateCustomEditor = new LocalDateCustomEditor(DateTimeFormat.forPattern(Pattern.localDate()));
-        when(customEditorFactory.createLocalDateCustomEditor()).thenReturn(locaDateCustomEditor);
+        LocalDateCustomEditor localDateCustomEditor = new LocalDateCustomEditor(DateTimeFormat.forPattern(Pattern.localDate()));
+        when(customEditorFactory.createLocalDateCustomEditor()).thenReturn(localDateCustomEditor);
         controller.initBinder(request, dataBinder);
         verify(customEditorFactory).createLocalDateCustomEditor();
-        verify(dataBinder).registerCustomEditor(LocalDate.class, locaDateCustomEditor);
+        verify(dataBinder).registerCustomEditor(LocalDate.class, localDateCustomEditor);
     }
 
     @SuppressWarnings("unchecked")
@@ -94,11 +94,12 @@ public class PlayerControllerTest {
 	
 	@Test
 	public void addPlayer_saveWhenNoBindingErrorsExist() throws Exception {
+        Model model = new ExtendedModelMap();
 		Player joe = new Player("Howard", "joe", new LocalDate(), 12);
 		
 		when(bindResult.hasErrors()).thenReturn(false);
 		
-		String viewName = controller.addPlayer(joe, bindResult);
+		String viewName = controller.addPlayer(joe, bindResult, model);
 		assertThat(viewName, is("redirect:/admin/players/"));
 		
 		ArgumentCaptor<Player> argument = ArgumentCaptor.forClass(Player.class);
@@ -108,13 +109,13 @@ public class PlayerControllerTest {
 	
 	@Test
 	public void addPlayer_saveWhenBindingErrorsExist() throws Exception {
-		Player joe = new Player("Howard", "joe", new LocalDate(), 12);
-		
+        Model model = new ExtendedModelMap();
+        Player joe = new Player("Howard", "joe", new LocalDate(), 12);
 		when(bindResult.hasErrors()).thenReturn(true);
 		
-		String viewName = controller.addPlayer(joe, bindResult);
+		String viewName = controller.addPlayer(joe, bindResult, model);
 		assertThat(viewName, is("player"));
-		
+
 		verify(playerRepository, times(0)).add(joe);
 	}
 	
@@ -134,13 +135,13 @@ public class PlayerControllerTest {
 	
 	@Test
 	public void editPlayer_saveWhenNoBindingErrorsExist() throws Exception {
-		Player joe = new Player("Howard", "joe", new LocalDate(), 12);
+        Player joe = new Player("Howard", "joe", new LocalDate(), 12);
 		
 		when(bindResult.hasErrors()).thenReturn(false);
 		
 		String viewName = controller.editPlayer(joe, bindResult);
 		assertThat(viewName, is("redirect:/admin/players/"));
-		
+
 		ArgumentCaptor<Player> argument = ArgumentCaptor.forClass(Player.class);
 		verify(playerRepository).update(argument.capture());
 		assertThat(argument.getValue(), is(joe));
@@ -148,13 +149,12 @@ public class PlayerControllerTest {
 	
 	@Test
 	public void editPlayer_saveWhenBindingErrorsExist() throws Exception {
-		Player joe = new Player("Howard", "joe", new LocalDate(), 12);
+        Player joe = new Player("Howard", "joe", new LocalDate(), 12);
 		
 		when(bindResult.hasErrors()).thenReturn(true);
 		
 		String viewName = controller.editPlayer(joe, bindResult);
 		assertThat(viewName, is("player"));
-		
 		verify(playerRepository, times(0)).update(joe);
 	}
 }

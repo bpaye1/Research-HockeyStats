@@ -11,10 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.ServletRequestDataBinder;
-import org.springframework.web.bind.annotation.InitBinder;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
@@ -23,6 +20,7 @@ import javax.validation.Valid;
 @Transactional
 @Controller
 @RequestMapping(value="/admin/players")
+@SessionAttributes({"states", "positions"})
 public class    PlayerController{
 	
 	private PlayerRepository repository;
@@ -60,7 +58,7 @@ public class    PlayerController{
 	}
 	
 	@RequestMapping(value="/player", method=RequestMethod.POST)
-	public String addPlayer(@Valid Player player, BindingResult bindingResult){
+	public String addPlayer(@Valid Player player, BindingResult bindingResult, Model model){
 		if(bindingResult.hasErrors()){
 			return "player";
 		}
@@ -84,5 +82,5 @@ public class    PlayerController{
 		repository.update(player);
 		return "redirect:/admin/players/";
 	}
-}
+ }
 	
