@@ -52,7 +52,11 @@
                             </tr>
                         </table>
                     </fieldset>
-                    <input type="submit" name="Add" value="Add" class="btn-primary" />
+                    <div>
+                        <s:url value="/admin/schedules" var="cancelUrl" />
+                        <a href="${cancelUrl}" class="btn btn-small">Cancel</a>
+                        <button class="btn btn-primary" name="Save" type="submit">Save</button>
+                    </div>
                 </sf:form>
             </div>
 

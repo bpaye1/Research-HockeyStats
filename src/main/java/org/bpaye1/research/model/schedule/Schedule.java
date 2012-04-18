@@ -1,8 +1,10 @@
 package org.bpaye1.research.model.schedule;
 
 import com.google.common.collect.Lists;
+import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.util.List;
 
 @Entity
@@ -13,10 +15,12 @@ public class Schedule {
 	@GeneratedValue
 	@Column(name="ID")
 	private Integer id;
-	
+
+    @NotEmpty
 	@Column(name="DESCRIPTION")
 	private String description;
-	
+
+    @NotEmpty
 	@Column(name="LEAGUE")
 	private String league;
 	

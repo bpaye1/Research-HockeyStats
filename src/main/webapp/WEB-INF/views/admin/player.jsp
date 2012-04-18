@@ -145,8 +145,11 @@
                     </tr>
                 </table>
             </fieldset>
-            <input type="submit" name="Save" value="Save" class="btn-primary" />
-            <input type="reset" name="Cancel" value="Cancel" />
+            <div>
+                <s:url value="/admin/players" var="cancelUrl" />
+                <a href="${cancelUrl}" class="btn btn-small">Cancel</a>
+                <button class="btn btn-primary" name="Save" type="submit">Save</button>
+            </div>
         </sf:form>
     </div>
 

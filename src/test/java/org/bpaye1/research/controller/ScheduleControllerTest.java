@@ -111,6 +111,25 @@ public class ScheduleControllerTest {
     }
 
     @Test
+    public void saveNewSchedule() throws Exception {
+        Schedule winter2012 = new Schedule("Winter 2012", "B-League");
+        when(bindResult.hasErrors()).thenReturn(false);
+
+        String viewName = controller.saveNewSchedule(winter2012, bindResult);
+
+        assertThat(viewName, is("redirect:/admin/schedules/"));
+        verify(repository).add(winter2012);
+    }
+
+    @Test
+    public void saveNewSchedule_whenBindErrorsExist() throws Exception {
+        Schedule winter2012 = new Schedule("Winter 2012", "B-League");
+        when(bindResult.hasErrors()).thenReturn(true);
+        String viewName = controller.saveNewSchedule(winter2012, bindResult);
+        assertThat(viewName, is("new-schedule"));
+    }
+
+    @Test
     public void newGame() throws Exception {
         Model model = new ExtendedModelMap();
 

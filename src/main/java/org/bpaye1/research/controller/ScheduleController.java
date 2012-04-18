@@ -66,6 +66,15 @@ public class ScheduleController {
 		return "new-schedule";
 	}
 
+    @RequestMapping(value = "/schedule", method = RequestMethod.POST)
+    public String saveNewSchedule(@Valid Schedule schedule, BindingResult bindingResult){
+        if(bindingResult.hasErrors()){
+            return "new-schedule";
+        }
+        repository.add(schedule);
+        return "redirect:/admin/schedules/";
+    }
+
     @RequestMapping(value="schedule/{id}/game", method = RequestMethod.GET)
     public String newGame(@PathVariable("id") Integer scheduleId, Model model){
         Schedule schedule = repository.find(scheduleId);
