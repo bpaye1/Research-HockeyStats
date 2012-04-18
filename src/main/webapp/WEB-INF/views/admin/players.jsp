@@ -46,7 +46,7 @@
                                    ${player.fullName}
                                 </a>
                             </td>
-                            <td>${player.position}</td>
+                            <td>${player.position.description}</td>
                             <td>${player.homeTown}</td>
                         </tr>
                     </c:forEach>

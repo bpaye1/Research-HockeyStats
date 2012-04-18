@@ -5,7 +5,7 @@
 
 <div class="container">
 	<div class="row">
-		<div class="span8">
+		<div class="span16">
 
             <div id="breadcrumbs">
                 <ul class="breadcrumb">
@@ -37,31 +37,39 @@
             <div id="content">
                 <table class="table table-striped table-bordered table-condensed">
                     <thead>
-                    <tr>
-                        <th class="span4">Date</th>
-                        <th class="span2">Time</th>
-                        <th class="span2">Opponent</th>
-                        <th class="span1">Home/Away</th>
-                        <th class="span4">Beverage Duty</th>
+                    <tr class="row">
+                        <th>Date</th>
+                        <th>Time</th>
+                        <th>Opponent</th>
+                        <th>Home/Away</th>
+                        <th>Location</th>
+                        <th>Beverage Duty</th>
                     </tr>
                     </thead>
                     <tbody>
                     <c:forEach var="game" items="${schedule.games}">
-                        <s:url var="gameUrl" value="/admin/schedules/schedule/${schedule.id}/games/${game.id}" />
-                        <tr>
-                            <td>
+                        <s:url var="gameUrl" value="/admin/schedules/schedule/${schedule.id}/game/${game.id}" />
+                        <tr class="row">
+                            <td class="span4">
                                 <joda:format value="${game.date}" style="L-" />
                              </td>
-                            <td>
+                            <td class="span2">
                                 <joda:format value="${game.time}" style="-S" />
                             </td>
-                            <td>
+                            <td class="span2">
                                 <a href="${gameUrl}">
                                     ${game.opponent}
                                 </a>
                             </td>
-                            <td>${game.homeOrAway.description}</td>
-                            <td>${game.beverageDutyPlayer.fullName}</td>
+                            <td class="span1">
+                                ${game.homeOrAway.description}
+                            </td>
+                            <td class="span8">
+                                ${game.location}
+                            </td>
+                            <td class="span8">
+                                ${game.beverageDutyPlayer.fullName}
+                            </td>
                         </tr>
                     </c:forEach>
                     </tbody>

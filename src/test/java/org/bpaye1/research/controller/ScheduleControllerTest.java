@@ -143,7 +143,7 @@ public class ScheduleControllerTest {
         when(repository.find(scheduleId)).thenReturn(winter2012);
 
         String viewName = controller.newGame(scheduleId, model);
-        assertThat(viewName, is("new-schedule-game"));
+        assertThat(viewName, is("schedule-game"));
 
         assertThat(model.containsAttribute("game"), is(true));
         assertThat(model.containsAttribute("homeOrAway"), is(true));
@@ -170,6 +170,43 @@ public class ScheduleControllerTest {
         Schedule winter2012 = new Schedule("Winter 2012", "B-League");
         Game game1 = new Game(winter2012, new LocalDate(2012, 04, 12), new LocalTime(21,30), "Chiefs", HomeOrAway.AWAY, "Reunion Arena");
         String viewName = controller.saveNewGame(1, game1, bindResult);
-        assertThat(viewName, is("new-schedule-game"));
+        assertThat(viewName, is("schedule-game"));
+    }
+
+    @Test
+    public void editGame() throws Exception {
+        Model model = new ExtendedModelMap();
+        Schedule winter2012 = new Schedule("Winter 2012", "B-League");
+        Game game1 = new Game(winter2012, new LocalDate(2012, 04, 12), new LocalTime(21,30), "Chiefs", HomeOrAway.AWAY, "Reunion Arena");
+        ReflectionTestUtils.setField(game1, "id", 0L);
+        when(repository.find(anyInt())).thenReturn(winter2012);
+        String viewName = controller.editGame(1, game1.getId(), model);
+        assertThat(viewName, is("schedule-game"));
+        assertThat(model.containsAttribute("game"), is(true));
+        assertThat(model.containsAttribute("homeOrAway"), is(true));
+        assertThat(model.containsAttribute("players"), is(true));
+        verify(repository).find(1);
+
+        Game modelGame = (Game) model.asMap().get("game");
+        assertThat(modelGame, is(game1));
+    }
+
+    @Test
+    public void saveGame_whenNoBindingErrorsExist() throws Exception {
+        Schedule winter2012 = new Schedule("Winter 2012", "B-League");
+        Game game1 = new Game(winter2012, new LocalDate(2012, 04, 12), new LocalTime(21,30), "Chiefs", HomeOrAway.AWAY, "Reunion Arena");
+        when(bindResult.hasErrors()).thenReturn(false);
+        String viewName = controller.editGame(game1, bindResult, 1);
+        assertThat(viewName, is("redirect:/admin/schedules/schedule/1"));
+        verify(repository).update(winter2012);
+    }
+
+    @Test
+    public void saveGame_whenBindErrorsExist() throws Exception {
+        Schedule winter2012 = new Schedule("Winter 2012", "B-League");
+        Game game1 = new Game(winter2012, new LocalDate(2012, 04, 12), new LocalTime(21,30), "Chiefs", HomeOrAway.AWAY, "Reunion Arena");
+        when(bindResult.hasErrors()).thenReturn(true);
+        String viewName = controller.editGame(game1, bindResult, 1);
+        assertThat(viewName, is("schedule-game"));
     }
 }

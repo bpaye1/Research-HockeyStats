@@ -81,17 +81,35 @@ public class ScheduleController {
         model.addAttribute("players", playerRepository.findAllActive());
         model.addAttribute("homeOrAway", HomeOrAway.values());
         model.addAttribute("game", new Game(schedule));
-        return "new-schedule-game";
+        return "schedule-game";
     }
 
     @RequestMapping(value="schedule/{id}/game", method = RequestMethod.POST)
     public String saveNewGame(@PathVariable("id") Integer scheduleId, @Valid Game game, BindingResult bindingResult){
         if(bindingResult.hasErrors()){
-            return "new-schedule-game";
+            return "schedule-game";
         }
         Schedule schedule = repository.find(scheduleId);
         schedule.addGame(game);
         repository.update(schedule);
         return "redirect:/admin/schedules/schedule/" + scheduleId + "/";
+    }
+
+    @RequestMapping(value = "schedule/{scheduleId}/game/{id}", method = RequestMethod.GET)
+    public  String editGame(@PathVariable Integer scheduleId, @PathVariable Long id, Model model){
+        Schedule schedule = repository.find(scheduleId);
+        model.addAttribute("players", playerRepository.findAllActive());
+        model.addAttribute("homeOrAway", HomeOrAway.values());
+        model.addAttribute("game", schedule.findGame(id));
+        return "schedule-game";
+    }
+
+    @RequestMapping(value = "schedule/{scheduleId}/game/{id}", method = RequestMethod.POST)
+    public String editGame(@Valid Game game, BindingResult bindingResult, @PathVariable Integer scheduleId){
+        if(bindingResult.hasErrors()){
+            return "schedule-game";
+        }
+        repository.update(game.getSchedule());
+        return "redirect:/admin/schedules/schedule/" +  scheduleId;
     }
 }

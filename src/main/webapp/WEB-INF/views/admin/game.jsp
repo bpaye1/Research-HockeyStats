@@ -1,6 +1,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://www.springframework.org/tags" prefix="s" %>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="sf" %>
+<%@ taglib uri="http://www.joda.org/joda/time/tags" prefix="joda"%>
 
 <script type="text/javascript">
     $(function(){
@@ -33,7 +34,15 @@
             <span class="divider">/</span>
         </li>
         <li class="active">
-             New Game
+            <c:choose>
+                <c:when test="${game.id !=null}">
+                    <joda:format value="${game.date}" style="M-" /> -
+                    ${game.opponent}
+                </c:when>
+                <c:otherwise>
+                    New Game
+                </c:otherwise>
+            </c:choose>
         </li>
     </ul>
     <sf:form method="post" modelAttribute="game">
@@ -101,7 +110,9 @@
                 </tr>
             </table>
         </fieldset>
-        <input type="submit" name="Save" value="Save" class="btn-primary" />
-        <input type="reset" name="Cancel" value="Cancel" />
+        <div>
+            <a href="${scheduleUrl}" class="btn btn-small">Cancel</a>
+            <button class="btn btn-primary" name="Save" type="submit">Save</button>
+        </div>
     </sf:form>
 </div>
