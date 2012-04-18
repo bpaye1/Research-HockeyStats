@@ -27,7 +27,7 @@ public class Game {
 
     @NotNull
     @Future
-    @DateTimeFormat(pattern = "MM-dd-yyyy")
+    @DateTimeFormat(pattern = "MM/dd/yyyy")
     @Type(type="org.jadira.usertype.dateandtime.joda.PersistentLocalDate")
 	@Column(name="GAME_DATE")
 	private LocalDate date;

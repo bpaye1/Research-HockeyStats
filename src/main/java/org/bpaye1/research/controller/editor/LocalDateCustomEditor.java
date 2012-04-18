@@ -35,6 +35,6 @@ public class LocalDateCustomEditor extends PropertyEditorSupport {
     @Override
     public String getAsText() {
         LocalDate value = (LocalDate) getValue();
-        return (value != null ? value.toString("MM-dd-YYYY") : "");
+        return (value != null ? value.toString(Pattern.localDate()) : "");
     }
 }

@@ -141,7 +141,7 @@ public class ScheduleControllerTest {
         when(bindResult.hasErrors()).thenReturn(false);
         Game game1 = new Game(winter2012, new LocalDate(2012, 04, 12), new LocalTime(21,30), "Chiefs", HomeOrAway.AWAY, "Reunion Arena");
         String viewName = controller.saveNewGame(1, game1, bindResult);
-        assertThat(viewName, is("redirect:/schedule/1/"));
+        assertThat(viewName, is("redirect:/admin/schedules/schedule/1/"));
         verify(repository).update(winter2012);
     }
 

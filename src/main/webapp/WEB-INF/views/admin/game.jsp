@@ -75,6 +75,7 @@
                             <sf:option value="" label="Select" />
                             <sf:options items="${homeOrAway}" itemLabel="description" />
                         </sf:select>
+                        <sf:errors path="homeOrAway" cssClass="alert-error" />
                     </td>
                 </tr>
                 <tr>
@@ -83,6 +84,7 @@
                     </td>
                     <td>
                         <sf:input path="location" cssClass="input-medium" />
+                        <sf:errors path="location" cssClass="alert-error" />
                     </td>
                 </tr>
                 <tr>

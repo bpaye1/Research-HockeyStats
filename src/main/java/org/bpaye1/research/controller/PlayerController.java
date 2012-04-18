@@ -20,8 +20,8 @@ import javax.validation.Valid;
 @Transactional
 @Controller
 @RequestMapping(value="/admin/players")
-@SessionAttributes({"states", "positions"})
-public class    PlayerController{
+@SessionAttributes({"player", "states", "positions"})
+public class PlayerController{
 	
 	private PlayerRepository repository;
 	private StateRepository stateRepository;

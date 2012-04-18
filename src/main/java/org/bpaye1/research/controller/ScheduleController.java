@@ -20,10 +20,10 @@ import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
-@RequestMapping(value="/admin/schedules")
-@SessionAttributes({"homeOrAway", "players"})
 @Transactional
 @Controller
+@RequestMapping(value="/admin/schedules")
+@SessionAttributes({"game", "homeOrAway", "players"})
 public class ScheduleController {
 
     private ScheduleRepository repository;
@@ -53,13 +53,13 @@ public class ScheduleController {
 		model.addAttribute("schedules", repository.findAll());
 		return "schedules";
 	}
-	
+
 	@RequestMapping(value="/schedule/{id}", method=RequestMethod.GET)
 	public String findSchedule(@PathVariable Integer id, Model model){
         model.addAttribute("schedule", repository.find(id));
 		return "schedule";
 	}
-	
+
 	@RequestMapping(value="/schedule", method=RequestMethod.GET)
 	public String newSchedule(Model model){
 		model.addAttribute("schedule", new Schedule());
@@ -83,6 +83,6 @@ public class ScheduleController {
         Schedule schedule = repository.find(scheduleId);
         schedule.addGame(game);
         repository.update(schedule);
-        return "redirect:/schedule/" + scheduleId + "/";
+        return "redirect:/admin/schedules/schedule/" + scheduleId + "/";
     }
 }

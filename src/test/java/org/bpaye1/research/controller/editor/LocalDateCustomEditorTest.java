@@ -16,7 +16,7 @@ public class LocalDateCustomEditorTest {
     @Test
     public void setAsText() throws Exception {
         LocalDateCustomEditor customEditor = new LocalDateCustomEditor(formatter);
-        customEditor.setAsText("11-12-2012");
+        customEditor.setAsText("11/12/2012");
         LocalDate customEditorValue = (LocalDate)customEditor.getValue();
         assertThat(customEditorValue.getYear(), is(2012));
         assertThat(customEditorValue.getMonthOfYear(), is(11));
@@ -32,7 +32,7 @@ public class LocalDateCustomEditorTest {
     @Test
     public void getAsText() throws Exception {
         LocalDateCustomEditor customEditor = new LocalDateCustomEditor(formatter);
-        String date = "11-01-2012";
+        String date = "11/01/2012";
         customEditor.setAsText(date);
         assertThat(customEditor.getAsText(), is(date));
     }

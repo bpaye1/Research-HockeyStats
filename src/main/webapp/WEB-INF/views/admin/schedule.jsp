@@ -1,6 +1,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://www.springframework.org/tags" prefix="s" %>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="sf" %>
+<%@ taglib uri="http://www.joda.org/joda/time/tags" prefix="joda"%>
 
 <div class="container">
 	<div class="row">
@@ -37,26 +38,30 @@
                 <table class="table table-striped table-bordered table-condensed">
                     <thead>
                     <tr>
-                        <th class="span1">Date</th>
-                        <th class="span1">Time</th>
-                        <th class="span1">Opponent</th>
+                        <th class="span4">Date</th>
+                        <th class="span2">Time</th>
+                        <th class="span2">Opponent</th>
                         <th class="span1">Home/Away</th>
-                        <th class="span1">Beverage Duty</th>
+                        <th class="span4">Beverage Duty</th>
                     </tr>
                     </thead>
                     <tbody>
                     <c:forEach var="game" items="${schedule.games}">
                         <s:url var="gameUrl" value="/admin/schedules/schedule/${schedule.id}/games/${game.id}" />
                         <tr>
-                            <td>${game.date}</td>
-                            <td>${game.time}</td>
+                            <td>
+                                <joda:format value="${game.date}" style="L-" />
+                             </td>
+                            <td>
+                                <joda:format value="${game.time}" style="-S" />
+                            </td>
                             <td>
                                 <a href="${gameUrl}">
-                                        ${game.opponent}
+                                    ${game.opponent}
                                 </a>
                             </td>
-                            <td>${game.homeOrAway}</td>
-                            <td>${game.beverageDutyPlayer}</td>
+                            <td>${game.homeOrAway.description}</td>
+                            <td>${game.beverageDutyPlayer.fullName}</td>
                         </tr>
                     </c:forEach>
                     </tbody>
