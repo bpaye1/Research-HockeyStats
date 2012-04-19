@@ -3,12 +3,13 @@ package org.bpaye1.research.model.schedule;
 import com.google.common.base.Predicate;
 import com.google.common.collect.Iterables;
 import com.google.common.collect.Lists;
+import com.google.common.collect.Sets;
 import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.annotation.Nullable;
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name="SCHEDULE")
@@ -60,10 +61,6 @@ public class Schedule {
 	
 	public List<Game> getGames(){
 		return games;
-	}
-	
-	public void setGames(List<Game> games){
-		this.games = games;
 	}
 		
 	public Game addGame(Game game){

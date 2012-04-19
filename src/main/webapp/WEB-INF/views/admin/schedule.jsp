@@ -44,16 +44,18 @@
                         <th>Home/Away</th>
                         <th>Location</th>
                         <th>Beverage Duty</th>
+                        <th>Result</th>
                     </tr>
                     </thead>
                     <tbody>
                     <c:forEach var="game" items="${schedule.games}">
                         <s:url var="gameUrl" value="/admin/schedules/schedule/${schedule.id}/game/${game.id}" />
+                        <s:url var="gameResultUrl" value="/admin/schedules/schedule/${schedule.id}/game/${game.id}/result" />
                         <tr class="row">
                             <td class="span4">
                                 <joda:format value="${game.date}" style="L-" />
                              </td>
-                            <td class="span2">
+                            <td class="span4">
                                 <joda:format value="${game.time}" style="-S" />
                             </td>
                             <td class="span2">
@@ -67,8 +69,27 @@
                             <td class="span8">
                                 ${game.location}
                             </td>
-                            <td class="span8">
+                            <td class="span7">
                                 ${game.beverageDutyPlayer.fullName}
+                            </td>
+                            <td span="1">
+                                <a href="${gameResultUrl}">
+                                    <c:choose>
+                                        <c:when test="game.result.isGameWon()">
+                                            W
+                                        </c:when>
+                                        <c:when test="game.result.isGameLost()">
+                                            L
+                                        </c:when>
+                                        <c:when test="game.result.isGameTied()">
+                                            T
+                                        </c:when>
+                                        <c:otherwise>
+                                            Edit
+                                        </c:otherwise>
+                                    </c:choose>
+                                    ${game.result.description}
+                                </a>
                             </td>
                         </tr>
                     </c:forEach>

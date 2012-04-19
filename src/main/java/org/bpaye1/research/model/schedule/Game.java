@@ -53,6 +53,8 @@ public class Game {
 	@ManyToOne
 	@JoinColumn(name="PLAYER_ON_BEVARAGE_DUTY")
 	private Player beverageDutyPlayer;
+
+    private transient GameResult result;
 	
 	public Game(){
 	}
@@ -69,6 +71,7 @@ public class Game {
 		this.opponent = opponent;
         this.homeOrAway = homeOrAway;
         this.location = location;
+        this.result = new GameResult(this);
 	}
 
 	public Schedule getSchedule() {
@@ -131,48 +134,33 @@ public class Game {
 		return id;
 	}
 
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((date == null) ? 0 : date.hashCode());
-		result = prime * result
-				+ ((opponent == null) ? 0 : opponent.hashCode());
-		result = prime * result
-				+ ((schedule == null) ? 0 : schedule.hashCode());
-		result = prime * result + ((time == null) ? 0 : time.hashCode());
-		return result;
-	}
+    public GameResult getResult(){
+        return result;
+    }
 
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Game other = (Game) obj;
-		if (date == null) {
-			if (other.date != null)
-				return false;
-		} else if (!date.equals(other.date))
-			return false;
-		if (opponent == null) {
-			if (other.opponent != null)
-				return false;
-		} else if (!opponent.equals(other.opponent))
-			return false;
-		if (schedule == null) {
-			if (other.schedule != null)
-				return false;
-		} else if (!schedule.equals(other.schedule))
-			return false;
-		if (time == null) {
-			if (other.time != null)
-				return false;
-		} else if (!time.equals(other.time))
-			return false;
-		return true;
-	}
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Game game = (Game) o;
+
+        if (date != null ? !date.equals(game.date) : game.date != null) return false;
+        if (location != null ? !location.equals(game.location) : game.location != null) return false;
+        if (opponent != null ? !opponent.equals(game.opponent) : game.opponent != null) return false;
+        if (schedule != null ? !schedule.equals(game.schedule) : game.schedule != null) return false;
+        if (time != null ? !time.equals(game.time) : game.time != null) return false;
+
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = schedule != null ? schedule.hashCode() : 0;
+        result = 31 * result + (date != null ? date.hashCode() : 0);
+        result = 31 * result + (time != null ? time.hashCode() : 0);
+        result = 31 * result + (opponent != null ? opponent.hashCode() : 0);
+        result = 31 * result + (location != null ? location.hashCode() : 0);
+        return result;
+    }
 }
