@@ -1,5 +1,6 @@
 package org.bpaye1.research.repository.internal;
 
+import org.bpaye1.research.model.schedule.Game;
 import org.bpaye1.research.model.schedule.Schedule;
 import org.bpaye1.research.repository.ScheduleRepository;
 import org.springframework.stereotype.Repository;
@@ -20,5 +21,11 @@ public class ScheduleRepositoryImpl extends GenericRepositoryImpl<Schedule, Inte
 
     public Schedule find(Integer id) {
         return em.find(Schedule.class, id);
+    }
+
+    public Game findGame(Long id) {
+        String hql = "select g from Game g left join fetch g.gameStats where g.id = :id";
+        TypedQuery<Game> query = em.createQuery(hql, Game.class).setParameter("id", id);
+        return query.getSingleResult();
     }
 }

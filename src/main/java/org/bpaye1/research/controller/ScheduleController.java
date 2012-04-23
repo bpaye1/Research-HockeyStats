@@ -112,4 +112,12 @@ public class ScheduleController {
         repository.update(game.getSchedule());
         return "redirect:/admin/schedules/schedule/" +  scheduleId;
     }
+
+    @RequestMapping(value = "schedule/{scheduleId}/game/{id}/result", method = RequestMethod.GET)
+    public String editGameResults(@PathVariable Integer scheduleId, @PathVariable Long id, Model model){
+        Schedule schedule = repository.find(scheduleId);
+        Game game = repository.findGame(id);
+        model.addAttribute("game", game);
+        return "schedule-game-result";
+    }
 }

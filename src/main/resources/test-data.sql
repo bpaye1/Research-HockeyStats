@@ -10,8 +10,8 @@ INSERT INTO PLAYER VALUES(3, 'Ian', 'Turner', 'iturner@something.com', '1980-01-
 INSERT INTO PLAYER VALUES(4, 'Willie', 'Hayes', 'williehayes@something.com', '1980-01-01', '56 some street', 'Richardson', 'TX', '74444' ,'111-111-1111', 22, 'Forth Worth', 'CENTER', 'ACTIVE');
 
 -- Game
-INSERT INTO GAME VALUES(0, 0, '2012-05-03', '20:30:00', 'Flyers', 'HOME', 'Frisco Stars Center', 2);
-INSERT INTO GAME VALUES(1, 0, '2012-05-10', '19:30:00', 'Hawks', 'HOME', 'Frisco Stars Center', 0);
-INSERT INTO GAME VALUES(2, 0, '2012-05-17', '21:30:00', 'Habs', 'AWAY', 'Frisco Stars Center', 3);
-INSERT INTO GAME VALUES(3, 0, '2012-05-24', '22:30:00', 'Chiefs', 'AWAY', 'Frisco Stars Center', 4);
-INSERT INTO GAME VALUES(4, 0, '2012-05-31', '20:30:00', 'Rangers', 'HOME', 'Frisco Stars Center', 1);
+INSERT INTO GAME VALUES(0, 0, '2012-05-03', '20:30:00', 'Flyers', 'HOME', 'Frisco Stars Center', 2, null, null);
+INSERT INTO GAME VALUES(1, 0, '2012-05-10', '19:30:00', 'Hawks', 'HOME', 'Frisco Stars Center', 0, null, null);
+INSERT INTO GAME VALUES(2, 0, '2012-05-17', '21:30:00', 'Habs', 'AWAY', 'Frisco Stars Center', 3, null, null);
+INSERT INTO GAME VALUES(3, 0, '2012-05-24', '22:30:00', 'Chiefs', 'AWAY', 'Frisco Stars Center', 4, null, null);
+INSERT INTO GAME VALUES(4, 0, '2012-05-31', '20:30:00', 'Rangers', 'HOME', 'Frisco Stars Center', 1, null, null);

@@ -1,5 +1,7 @@
 package org.bpaye1.research.model.schedule;
 
+import com.google.common.collect.Lists;
+import org.apache.commons.lang.StringUtils;
 import org.bpaye1.research.model.player.Player;
 import org.hibernate.annotations.Type;
 import org.hibernate.validator.constraints.NotEmpty;
@@ -10,11 +12,12 @@ import org.springframework.format.annotation.DateTimeFormat;
 import javax.persistence.*;
 import javax.validation.constraints.Future;
 import javax.validation.constraints.NotNull;
+import java.util.List;
 
 @Entity
 @Table(name="GAME")
 public class Game {
-	
+
 	@Id
 	@GeneratedValue
 	@Column(name="ID")
@@ -54,8 +57,16 @@ public class Game {
 	@JoinColumn(name="PLAYER_ON_BEVARAGE_DUTY")
 	private Player beverageDutyPlayer;
 
-    private transient GameResult result;
-	
+    @Column(name="TEAM_SCORE")
+    private Integer teamScore;
+
+    @Column(name="OPPONENT_TEAM_SCORE")
+    private Integer opponentTeamScore;
+
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinColumn(name="GAME_ID")
+    private List<PlayerGameStats> gameStats = Lists.newArrayList();
+
 	public Game(){
 	}
 
@@ -71,7 +82,6 @@ public class Game {
 		this.opponent = opponent;
         this.homeOrAway = homeOrAway;
         this.location = location;
-        this.result = new GameResult(this);
 	}
 
 	public Schedule getSchedule() {
@@ -134,8 +144,48 @@ public class Game {
 		return id;
 	}
 
-    public GameResult getResult(){
-        return result;
+    public Integer getOpponentTeamScore() {
+        return opponentTeamScore;
+    }
+
+    public void setOpponentTeamScore(Integer opponentTeamScore) {
+        this.opponentTeamScore = opponentTeamScore;
+    }
+
+    public Integer getTeamScore() {
+        return teamScore;
+    }
+
+    public void setTeamScore(Integer teamScore) {
+        this.teamScore = teamScore;
+    }
+
+    public List<PlayerGameStats> getGameStats() {
+        return gameStats;
+    }
+
+    public void addPlayerGameStats(PlayerGameStats playerGameStats){
+        gameStats.add(playerGameStats);
+    }
+
+    public String getDescription(){
+        return isGamePlayed() ? teamScore + " - " + opponentTeamScore : StringUtils.EMPTY;
+    }
+
+    public boolean isGameTied(){
+        return opponentTeamScore == teamScore;
+    }
+
+    public boolean isGameWon(){
+        return teamScore > opponentTeamScore;
+    }
+
+    public boolean isGameLost(){
+        return teamScore < opponentTeamScore;
+    }
+
+    public boolean isGamePlayed(){
+        return teamScore != null && opponentTeamScore != null;
     }
 
     @Override
@@ -146,9 +196,9 @@ public class Game {
         Game game = (Game) o;
 
         if (date != null ? !date.equals(game.date) : game.date != null) return false;
+        if (homeOrAway != game.homeOrAway) return false;
         if (location != null ? !location.equals(game.location) : game.location != null) return false;
         if (opponent != null ? !opponent.equals(game.opponent) : game.opponent != null) return false;
-        if (schedule != null ? !schedule.equals(game.schedule) : game.schedule != null) return false;
         if (time != null ? !time.equals(game.time) : game.time != null) return false;
 
         return true;
@@ -156,11 +206,11 @@ public class Game {
 
     @Override
     public int hashCode() {
-        int result = schedule != null ? schedule.hashCode() : 0;
-        result = 31 * result + (date != null ? date.hashCode() : 0);
-        result = 31 * result + (time != null ? time.hashCode() : 0);
-        result = 31 * result + (opponent != null ? opponent.hashCode() : 0);
-        result = 31 * result + (location != null ? location.hashCode() : 0);
+        int result = date != null ? date.hashCode() : 0;
+        result = 33 * result + (time != null ? time.hashCode() : 0);
+        result = 33 * result + (opponent != null ? opponent.hashCode() : 0);
+        result = 33 * result + (homeOrAway != null ? homeOrAway.hashCode() : 0);
+        result = 33 * result + (location != null ? location.hashCode() : 0);
         return result;
     }
 }

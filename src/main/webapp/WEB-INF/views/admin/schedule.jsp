@@ -75,20 +75,20 @@
                             <td span="1">
                                 <a href="${gameResultUrl}">
                                     <c:choose>
-                                        <c:when test="game.result.isGameWon()">
+                                        <c:when test="game.isGameWon()">
                                             W
                                         </c:when>
-                                        <c:when test="game.result.isGameLost()">
+                                        <c:when test="game.isGameLost()">
                                             L
                                         </c:when>
-                                        <c:when test="game.result.isGameTied()">
+                                        <c:when test="game.isGameTied()">
                                             T
                                         </c:when>
                                         <c:otherwise>
-                                            Edit
+                                            Not Played
                                         </c:otherwise>
                                     </c:choose>
-                                    ${game.result.description}
+                                    ${game.description}
                                 </a>
                             </td>
                         </tr>
@@ -96,7 +96,6 @@
                     </tbody>
                 </table>
             </div>
-
 		</div>
 	</div>
 </div>

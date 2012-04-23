@@ -2,18 +2,40 @@ package org.bpaye1.research.model.schedule;
 
 import org.bpaye1.research.model.player.Player;
 
-public class PlayerGameResult {
+import javax.persistence.*;
+import java.io.Serializable;
 
+@Entity
+@Table(name="PLAYER_GAME_STATS")
+public class PlayerGameStats {
+
+    @EmbeddedId
+    private PlayerGameStatsId id;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name="PLAYER_ID", insertable = false, updatable = false)
     private Player player;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name="GAME_ID", insertable = false, updatable = false)
+    private Game game;
+
+    @Column(name="GOALS")
     private Integer goals;
 
+    @Column(name="ASSISTS")
     private Integer assists;
 
+    @Column(name="PENALTY_MINUTES")
     private Integer penaltyMinutes;
 
-    public PlayerGameResult(Player player) {
+    protected PlayerGameStats(){
+    }
+
+    public PlayerGameStats(Game game, Player player) {
         this.player = player;
+        this.game = game;
+        this.id = new PlayerGameStatsId(game, player);
     }
 
     public Integer getGoals() {
@@ -49,15 +71,15 @@ public class PlayerGameResult {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        PlayerGameResult that = (PlayerGameResult) o;
+        PlayerGameStats gameStats = (PlayerGameStats) o;
 
-        if (player != null ? !player.equals(that.player) : that.player != null) return false;
+        if (id != null ? !id.equals(gameStats.id) : gameStats.id != null) return false;
 
         return true;
     }
 
     @Override
     public int hashCode() {
-        return player != null ? player.hashCode() : 0;
+        return id != null ? id.hashCode() : 0;
     }
 }
