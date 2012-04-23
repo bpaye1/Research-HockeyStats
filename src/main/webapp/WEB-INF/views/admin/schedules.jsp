@@ -38,10 +38,9 @@
                     <c:forEach var="schedule" items="${schedules}">
                         <s:url var="scheduleUrl" value="/admin/schedules/schedule/${schedule.id}" />
                         <tr>
-                            <td>${schedule.description}</td>
                             <td>
                                 <a href="${scheduleUrl}">
-                                        ${schedule.description}
+                                    ${schedule.description}
                                 </a>
                             </td>
                             <td>${schedule.league}</td>
@@ -50,7 +49,6 @@
                     </tbody>
                 </table>
             </div>
-
 		</div>
 	</div>
 </div>
