@@ -164,10 +164,6 @@ public class Game {
         return gameStats;
     }
 
-    public void addPlayerGameStats(PlayerGameStats playerGameStats){
-        gameStats.add(playerGameStats);
-    }
-
     public String getDescription(){
         return isGamePlayed() ? teamScore + " - " + opponentTeamScore : StringUtils.EMPTY;
     }
@@ -186,6 +182,20 @@ public class Game {
 
     public boolean isGamePlayed(){
         return teamScore != null && opponentTeamScore != null;
+    }
+
+    public boolean hasNoGameStats(){
+        return gameStats.size() == 0;
+    }
+
+    public void initializeGameStats(List<Player> players){
+        for(Player player : players){
+            addPlayerGameStats(new PlayerGameStats(this, player));
+        }
+    }
+
+    public void addPlayerGameStats(PlayerGameStats playerGameStats){
+        gameStats.add(playerGameStats);
     }
 
     @Override

@@ -154,4 +154,19 @@ public class GameTest {
         game.setOpponentTeamScore(null);
         assertThat(game.isGamePlayed(), is(false));
     }
+
+    @Test
+    public void hasNoGameStats() throws Exception {
+        Schedule spring2012 = new Schedule("Spring 2012", "A-League");
+        Game game = new Game(spring2012);
+        assertThat(game.hasNoGameStats(), is(true));
+    }
+
+    @Test
+    public void hasNoGameStats_returnFalseWhenGameStatsExist() throws Exception {
+        Schedule spring2012 = new Schedule("Spring 2012", "A-League");
+        Game game = new Game(spring2012);
+        game.addPlayerGameStats(new PlayerGameStats());
+        assertThat(game.hasNoGameStats(), is(false));
+    }
 }

@@ -7,7 +7,7 @@ import org.bpaye1.research.model.schedule.Game;
 import org.bpaye1.research.model.schedule.HomeOrAway;
 import org.bpaye1.research.model.schedule.Schedule;
 import org.bpaye1.research.repository.PlayerRepository;
-import org.bpaye1.research.repository.ScheduleRepository;
+import org.bpaye1.research.service.ScheduleService;
 import org.joda.time.LocalDate;
 import org.joda.time.LocalTime;
 import org.joda.time.format.DateTimeFormat;
@@ -35,7 +35,7 @@ import static org.mockito.Mockito.*;
 public class ScheduleControllerTest {
 
     @Mock
-    private ScheduleRepository repository;
+    private ScheduleService service;
 
     @Mock
     private PlayerRepository playerRepository;
@@ -50,7 +50,7 @@ public class ScheduleControllerTest {
 
     @Before
     public void setUp(){
-        controller = new ScheduleController(repository, playerRepository, customEditorFactory);
+        controller = new ScheduleController(service, playerRepository, customEditorFactory);
     }
 
     @Test
@@ -80,7 +80,7 @@ public class ScheduleControllerTest {
         Schedule winter2012 = new Schedule("Winter 2012", "B-League");
         Model model = new ExtendedModelMap();
 
-        when(repository.findAll()).thenReturn(Lists.newArrayList(winter2012));
+        when(service.findAllSchedules()).thenReturn(Lists.newArrayList(winter2012));
 
         String viewName = controller.findSchedules(model);
         assertThat(viewName, is("schedules"));
@@ -92,7 +92,7 @@ public class ScheduleControllerTest {
     @Test
     public void findSchedule() throws Exception {
         Schedule winter2012 = new Schedule("Winter 2012", "B-League");
-        when(repository.find(anyInt())).thenReturn(winter2012);
+        when(service.findSchedule(anyInt())).thenReturn(winter2012);
 
         Model model = new ExtendedModelMap();
 
@@ -118,7 +118,7 @@ public class ScheduleControllerTest {
         String viewName = controller.saveNewSchedule(winter2012, bindResult);
 
         assertThat(viewName, is("redirect:/admin/schedules/"));
-        verify(repository).add(winter2012);
+        verify(service).addSchedule(winter2012);
     }
 
     @Test
@@ -140,7 +140,7 @@ public class ScheduleControllerTest {
         Schedule winter2012 = new Schedule("Winter 2012", "B-League");
         int scheduleId = 1;
         ReflectionTestUtils.setField(winter2012, "id", scheduleId);
-        when(repository.find(scheduleId)).thenReturn(winter2012);
+        when(service.findSchedule(scheduleId)).thenReturn(winter2012);
 
         String viewName = controller.newGame(scheduleId, model);
         assertThat(viewName, is("schedule-game"));
@@ -156,12 +156,12 @@ public class ScheduleControllerTest {
     @Test
     public void saveNewGame() throws Exception {
         Schedule winter2012 = new Schedule("Winter 2012", "B-League");
-        when(repository.find(anyInt())).thenReturn(winter2012);
+        when(service.findSchedule(anyInt())).thenReturn(winter2012);
         when(bindResult.hasErrors()).thenReturn(false);
         Game game1 = new Game(winter2012, new LocalDate(2012, 04, 12), new LocalTime(21,30), "Chiefs", HomeOrAway.AWAY, "Reunion Arena");
         String viewName = controller.saveNewGame(1, game1, bindResult);
         assertThat(viewName, is("redirect:/admin/schedules/schedule/1/"));
-        verify(repository).update(winter2012);
+        verify(service).updateSchedule(winter2012);
     }
 
     @Test
@@ -179,13 +179,13 @@ public class ScheduleControllerTest {
         Schedule winter2012 = new Schedule("Winter 2012", "B-League");
         Game game1 = new Game(winter2012, new LocalDate(2012, 04, 12), new LocalTime(21,30), "Chiefs", HomeOrAway.AWAY, "Reunion Arena");
         ReflectionTestUtils.setField(game1, "id", 0L);
-        when(repository.find(anyInt())).thenReturn(winter2012);
+        when(service.findSchedule(anyInt())).thenReturn(winter2012);
         String viewName = controller.editGame(1, game1.getId(), model);
         assertThat(viewName, is("schedule-game"));
         assertThat(model.containsAttribute("game"), is(true));
         assertThat(model.containsAttribute("homeOrAway"), is(true));
         assertThat(model.containsAttribute("players"), is(true));
-        verify(repository).find(1);
+        verify(service).findSchedule(1);
 
         Game modelGame = (Game) model.asMap().get("game");
         assertThat(modelGame, is(game1));
@@ -198,7 +198,7 @@ public class ScheduleControllerTest {
         when(bindResult.hasErrors()).thenReturn(false);
         String viewName = controller.editGame(game1, bindResult, 1);
         assertThat(viewName, is("redirect:/admin/schedules/schedule/1"));
-        verify(repository).update(winter2012);
+        verify(service).updateSchedule(winter2012);
     }
 
     @Test
@@ -208,5 +208,16 @@ public class ScheduleControllerTest {
         when(bindResult.hasErrors()).thenReturn(true);
         String viewName = controller.editGame(game1, bindResult, 1);
         assertThat(viewName, is("schedule-game"));
+    }
+
+    @Test
+    public void editGameResults() throws Exception {
+        Model model = new ExtendedModelMap();
+        Schedule winter2012 = new Schedule("Winter 2012", "B-League");
+        Game game1 = new Game(winter2012, new LocalDate(2012, 04, 12), new LocalTime(21,30), "Chiefs", HomeOrAway.AWAY, "Reunion Arena");
+        ReflectionTestUtils.setField(game1, "id", 1L);
+        String viewName = controller.editGameResults(game1.getId(), model);
+        verify(service).findGame(game1.getId());
+        assertThat(model.containsAttribute("game"), is(true));
     }
 }

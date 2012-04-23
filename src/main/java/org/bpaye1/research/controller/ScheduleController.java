@@ -6,7 +6,7 @@ import org.bpaye1.research.model.schedule.Game;
 import org.bpaye1.research.model.schedule.HomeOrAway;
 import org.bpaye1.research.model.schedule.Schedule;
 import org.bpaye1.research.repository.PlayerRepository;
-import org.bpaye1.research.repository.ScheduleRepository;
+import org.bpaye1.research.service.ScheduleService;
 import org.joda.time.LocalDate;
 import org.joda.time.LocalTime;
 import org.springframework.stereotype.Controller;
@@ -25,8 +25,7 @@ import javax.validation.Valid;
 @RequestMapping(value="/admin/schedules")
 @SessionAttributes({"game", "homeOrAway", "players"})
 public class ScheduleController {
-
-    private ScheduleRepository repository;
+    private ScheduleService service;
     private PlayerRepository playerRepository;
     private CustomEditorFactory customEditorFactory;
 
@@ -34,9 +33,9 @@ public class ScheduleController {
     }
 
     @Inject
-    public ScheduleController(ScheduleRepository repository, PlayerRepository playerRepository,
+    public ScheduleController(ScheduleService service, PlayerRepository playerRepository,
                               CustomEditorFactory customEditorFactory) {
-        this.repository = repository;
+        this.service = service;
         this.playerRepository = playerRepository;
         this.customEditorFactory = customEditorFactory;
     }
@@ -50,13 +49,13 @@ public class ScheduleController {
 
     @RequestMapping(value = "", method=RequestMethod.GET)
 	public String findSchedules(Model model){
-		model.addAttribute("schedules", repository.findAll());
+		model.addAttribute("schedules", service.findAllSchedules());
 		return "schedules";
 	}
 
 	@RequestMapping(value="/schedule/{id}", method=RequestMethod.GET)
 	public String findSchedule(@PathVariable Integer id, Model model){
-        model.addAttribute("schedule", repository.find(id));
+        model.addAttribute("schedule", service.findSchedule(id));
 		return "schedule";
 	}
 
@@ -71,13 +70,13 @@ public class ScheduleController {
         if(bindingResult.hasErrors()){
             return "new-schedule";
         }
-        repository.add(schedule);
+        service.addSchedule(schedule);
         return "redirect:/admin/schedules/";
     }
 
     @RequestMapping(value="schedule/{id}/game", method = RequestMethod.GET)
     public String newGame(@PathVariable("id") Integer scheduleId, Model model){
-        Schedule schedule = repository.find(scheduleId);
+        Schedule schedule = service.findSchedule(scheduleId);
         model.addAttribute("players", playerRepository.findAllActive());
         model.addAttribute("homeOrAway", HomeOrAway.values());
         model.addAttribute("game", new Game(schedule));
@@ -89,15 +88,15 @@ public class ScheduleController {
         if(bindingResult.hasErrors()){
             return "schedule-game";
         }
-        Schedule schedule = repository.find(scheduleId);
+        Schedule schedule = service.findSchedule(scheduleId);
         schedule.addGame(game);
-        repository.update(schedule);
+        service.updateSchedule(schedule);
         return "redirect:/admin/schedules/schedule/" + scheduleId + "/";
     }
 
     @RequestMapping(value = "schedule/{scheduleId}/game/{id}", method = RequestMethod.GET)
     public  String editGame(@PathVariable Integer scheduleId, @PathVariable Long id, Model model){
-        Schedule schedule = repository.find(scheduleId);
+        Schedule schedule = service.findSchedule(scheduleId);
         model.addAttribute("players", playerRepository.findAllActive());
         model.addAttribute("homeOrAway", HomeOrAway.values());
         model.addAttribute("game", schedule.findGame(id));
@@ -109,14 +108,13 @@ public class ScheduleController {
         if(bindingResult.hasErrors()){
             return "schedule-game";
         }
-        repository.update(game.getSchedule());
+        service.updateSchedule(game.getSchedule());
         return "redirect:/admin/schedules/schedule/" +  scheduleId;
     }
 
     @RequestMapping(value = "schedule/{scheduleId}/game/{id}/result", method = RequestMethod.GET)
-    public String editGameResults(@PathVariable Integer scheduleId, @PathVariable Long id, Model model){
-        Schedule schedule = repository.find(scheduleId);
-        Game game = repository.findGame(id);
+    public String editGameResults(@PathVariable Long id, Model model){
+        Game game = service.findGame(id);
         model.addAttribute("game", game);
         return "schedule-game-result";
     }
