@@ -2,7 +2,7 @@ package org.bpaye1.research.controller;
 
 import org.bpaye1.research.controller.editor.CustomEditorFactory;
 import org.bpaye1.research.model.player.Player;
-import org.bpaye1.research.model.schedule.Game;
+import org.bpaye1.research.model.schedule.game.Game;
 import org.bpaye1.research.model.schedule.HomeOrAway;
 import org.bpaye1.research.model.schedule.Schedule;
 import org.bpaye1.research.repository.PlayerRepository;

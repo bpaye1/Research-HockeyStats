@@ -1,9 +1,8 @@
-package org.bpaye1.research.model.schedule;
+package org.bpaye1.research.model.schedule.game;
 
 import org.bpaye1.research.model.player.Player;
 
 import javax.persistence.*;
-import java.io.Serializable;
 
 @Entity
 @Table(name="PLAYER_GAME_STATS")
@@ -20,6 +19,10 @@ public class PlayerGameStats {
     @JoinColumn(name="GAME_ID", insertable = false, updatable = false)
     private Game game;
 
+    @Enumerated(EnumType.STRING)
+    @Column(name="GAME_STATUS")
+    private GameStatus gameStatus = GameStatus.DID_NOT_PLAY;
+
     @Column(name="GOALS")
     private Integer goals;
 
@@ -33,9 +36,25 @@ public class PlayerGameStats {
     }
 
     public PlayerGameStats(Game game, Player player) {
-        this.player = player;
         this.game = game;
+        this.player = player;
         this.id = new PlayerGameStatsId(game, player);
+    }
+
+    public Game getGame() {
+        return game;
+    }
+
+    public GameStatus getGameStatus() {
+        return gameStatus;
+    }
+
+    public PlayerGameStatsId getId() {
+        return id;
+    }
+
+    public Player getPlayer() {
+        return player;
     }
 
     public Integer getGoals() {
@@ -62,18 +81,14 @@ public class PlayerGameStats {
         this.penaltyMinutes = penaltyMinutes;
     }
 
-    public Player getPlayer() {
-        return player;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        PlayerGameStats gameStats = (PlayerGameStats) o;
+        PlayerGameStats that = (PlayerGameStats) o;
 
-        if (id != null ? !id.equals(gameStats.id) : gameStats.id != null) return false;
+        if (id != null ? !id.equals(that.id) : that.id != null) return false;
 
         return true;
     }

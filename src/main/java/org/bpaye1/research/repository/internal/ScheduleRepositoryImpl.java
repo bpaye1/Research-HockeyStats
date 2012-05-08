@@ -1,6 +1,6 @@
 package org.bpaye1.research.repository.internal;
 
-import org.bpaye1.research.model.schedule.Game;
+import org.bpaye1.research.model.schedule.game.Game;
 import org.bpaye1.research.model.schedule.Schedule;
 import org.bpaye1.research.repository.ScheduleRepository;
 import org.springframework.stereotype.Repository;

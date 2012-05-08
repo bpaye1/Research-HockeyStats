@@ -3,13 +3,12 @@ package org.bpaye1.research.model.schedule;
 import com.google.common.base.Predicate;
 import com.google.common.collect.Iterables;
 import com.google.common.collect.Lists;
-import com.google.common.collect.Sets;
+import org.bpaye1.research.model.schedule.game.Game;
 import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.annotation.Nullable;
 import javax.persistence.*;
 import java.util.List;
-import java.util.Set;
 
 @Entity
 @Table(name="SCHEDULE")

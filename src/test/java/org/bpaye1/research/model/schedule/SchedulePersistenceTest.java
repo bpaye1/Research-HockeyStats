@@ -2,6 +2,7 @@ package org.bpaye1.research.model.schedule;
 
 import org.bpaye1.research.AbstractDatabaseTest;
 import org.bpaye1.research.model.player.Player;
+import org.bpaye1.research.model.schedule.game.Game;
 import org.joda.time.LocalDate;
 import org.joda.time.LocalTime;
 import org.junit.Test;
@@ -86,40 +87,4 @@ public class SchedulePersistenceTest extends AbstractDatabaseTest {
         assertThat(persistedGame.getOpponentTeamScore(), is(game1.getOpponentTeamScore()));
 	}
 
-    @Test
-    public void persistPlayerGameStats() throws Exception {
-        Player joe = new Player("joe", "joe", new LocalDate(1965,12,12), 88);
-        Schedule schedule = new Schedule("Fall 2012", "B-League");
-        Game game1 = new Game(schedule, new LocalDate(2012, 9, 23),
-                new LocalTime(21, 30), "Chiefs", HomeOrAway.AWAY, "Random Arena");
-
-        getEm().persist(joe);
-        getEm().persist(schedule);
-        getEm().flush();
-        getEm().clear();
-
-        Game persistedGame = getEm().find(Game.class, game1.getId());
-        PlayerGameStats gameStatsForJoe = new PlayerGameStats(persistedGame, joe);
-        gameStatsForJoe.setGoals(2);
-        gameStatsForJoe.setAssists(1);
-        gameStatsForJoe.setPenaltyMinutes(4);
-        persistedGame.setTeamScore(5);
-        persistedGame.setOpponentTeamScore(3);
-        persistedGame.addPlayerGameStats(gameStatsForJoe);
-
-        getEm().flush();
-        getEm().clear();
-
-        persistedGame = getEm().find(Game.class, game1.getId());
-        joe = getEm().find(Player.class, joe.getId());
-
-        assertThat(persistedGame.getTeamScore(), is(5));
-        assertThat(persistedGame.getOpponentTeamScore(), is(3));
-        assertThat(persistedGame.getGameStats(), hasItem(gameStatsForJoe));
-        PlayerGameStats playerGameStats = persistedGame.getGameStats().get(0);
-        assertThat(playerGameStats.getGoals(), is(2));
-        assertThat(playerGameStats.getAssists(), is(1));
-        assertThat(playerGameStats.getPenaltyMinutes(), is(4));
-        assertThat(playerGameStats.getPlayer(), is(joe));
-    }
 }

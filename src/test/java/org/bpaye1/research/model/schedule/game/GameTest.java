@@ -1,7 +1,10 @@
-package org.bpaye1.research.model.schedule;
+package org.bpaye1.research.model.schedule.game;
 
+import com.google.common.collect.Lists;
 import org.apache.commons.lang.StringUtils;
 import org.bpaye1.research.model.player.Player;
+import org.bpaye1.research.model.player.Position;
+import org.bpaye1.research.model.schedule.Schedule;
 import org.joda.time.LocalDate;
 import org.junit.Test;
 
@@ -12,10 +15,9 @@ import static org.junit.Assert.assertThat;
 public class GameTest {
 
     @Test
-    public void addPlayerGameResult() throws Exception {
+    public void addPlayerGameStats() throws Exception {
         Schedule spring2012 = new Schedule("Spring 2012", "A-League");
         Player player = new Player("Richard", "Maurice", new LocalDate(1945, 12, 12), 9);
-
 
         Game game = new Game(spring2012);
         game.setOpponentTeamScore(0);
@@ -28,6 +30,22 @@ public class GameTest {
 
         assertThat(game.getGameStats(), hasItem(playerGameResult));
     }
+
+    @Test
+    public void initializeGameStats() throws Exception {
+        Schedule spring2012 = new Schedule("Spring 2012", "A-League");
+        Player player = new Player("Richard", "Maurice", new LocalDate(1945, 12, 12), 9);
+        player.setPosition(Position.CENTER);
+
+        Player goalie = new Player("Dryden", "Ken", new LocalDate(1944, 12, 22), 1);
+        goalie.setPosition(Position.GOALIE);
+
+        Game game = new Game(spring2012);
+        game.initializeGameStats(Lists.newArrayList(player, goalie));
+        assertThat(game.getGameStats(), hasItem(new PlayerGameStats(game, player)));
+        assertThat(game.getGoalieGameStats(), hasItem(new GoalieGameStats(game, player)));
+    }
+
 
     @Test
     public void getDescription() throws Exception {
@@ -166,7 +184,7 @@ public class GameTest {
     public void hasNoGameStats_returnFalseWhenGameStatsExist() throws Exception {
         Schedule spring2012 = new Schedule("Spring 2012", "A-League");
         Game game = new Game(spring2012);
-        game.addPlayerGameStats(new PlayerGameStats());
+        game.addPlayerGameStats(new PlayerGameStats(game, new Player()));
         assertThat(game.hasNoGameStats(), is(false));
     }
 }

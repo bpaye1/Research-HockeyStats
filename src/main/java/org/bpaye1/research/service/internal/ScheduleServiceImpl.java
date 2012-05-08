@@ -1,6 +1,6 @@
 package org.bpaye1.research.service.internal;
 
-import org.bpaye1.research.model.schedule.Game;
+import org.bpaye1.research.model.schedule.game.Game;
 import org.bpaye1.research.model.schedule.Schedule;
 import org.bpaye1.research.repository.PlayerRepository;
 import org.bpaye1.research.repository.ScheduleRepository;

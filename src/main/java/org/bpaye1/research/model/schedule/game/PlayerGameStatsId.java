@@ -1,4 +1,4 @@
-package org.bpaye1.research.model.schedule;
+package org.bpaye1.research.model.schedule.game;
 
 import org.bpaye1.research.model.player.Player;
 

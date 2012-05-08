@@ -1,8 +1,11 @@
-package org.bpaye1.research.model.schedule;
+package org.bpaye1.research.model.schedule.game;
 
 import com.google.common.collect.Lists;
 import org.apache.commons.lang.StringUtils;
 import org.bpaye1.research.model.player.Player;
+import org.bpaye1.research.model.player.Position;
+import org.bpaye1.research.model.schedule.HomeOrAway;
+import org.bpaye1.research.model.schedule.Schedule;
 import org.hibernate.annotations.Type;
 import org.hibernate.validator.constraints.NotEmpty;
 import org.joda.time.LocalDate;
@@ -66,6 +69,10 @@ public class Game {
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name="GAME_ID")
     private List<PlayerGameStats> gameStats = Lists.newArrayList();
+
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinColumn(name="GAME_ID")
+    private List<GoalieGameStats> goalieGameStats = Lists.newArrayList();
 
 	public Game(){
 	}
@@ -164,6 +171,10 @@ public class Game {
         return gameStats;
     }
 
+    public List<GoalieGameStats> getGoalieGameStats(){
+        return  goalieGameStats;
+    }
+
     public String getDescription(){
         return isGamePlayed() ? teamScore + " - " + opponentTeamScore : StringUtils.EMPTY;
     }
@@ -190,12 +201,21 @@ public class Game {
 
     public void initializeGameStats(List<Player> players){
         for(Player player : players){
-            addPlayerGameStats(new PlayerGameStats(this, player));
+            if(player.getPosition() == Position.GOALIE){
+                addGoalieGameStats(new GoalieGameStats(this, player));
+            }
+            else {
+                addPlayerGameStats(new PlayerGameStats(this, player));
+            }
         }
     }
 
     public void addPlayerGameStats(PlayerGameStats playerGameStats){
         gameStats.add(playerGameStats);
+    }
+
+    public void addGoalieGameStats(GoalieGameStats goaliePlayerGameStats){
+        goalieGameStats.add(goaliePlayerGameStats);
     }
 
     @Override

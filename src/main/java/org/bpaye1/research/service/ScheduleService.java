@@ -1,6 +1,6 @@
 package org.bpaye1.research.service;
 
-import org.bpaye1.research.model.schedule.Game;
+import org.bpaye1.research.model.schedule.game.Game;
 import org.bpaye1.research.model.schedule.Schedule;
 
 import java.util.List;

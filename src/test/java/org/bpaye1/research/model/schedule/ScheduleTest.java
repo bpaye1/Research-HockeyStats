@@ -1,5 +1,6 @@
 package org.bpaye1.research.model.schedule;
 
+import org.bpaye1.research.model.schedule.game.Game;
 import org.joda.time.LocalDate;
 import org.joda.time.LocalTime;
 import org.junit.Test;

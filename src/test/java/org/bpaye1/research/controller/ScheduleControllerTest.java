@@ -3,7 +3,7 @@ package org.bpaye1.research.controller;
 import com.google.common.collect.Lists;
 import org.bpaye1.research.controller.editor.*;
 import org.bpaye1.research.model.player.Player;
-import org.bpaye1.research.model.schedule.Game;
+import org.bpaye1.research.model.schedule.game.Game;
 import org.bpaye1.research.model.schedule.HomeOrAway;
 import org.bpaye1.research.model.schedule.Schedule;
 import org.bpaye1.research.repository.PlayerRepository;
