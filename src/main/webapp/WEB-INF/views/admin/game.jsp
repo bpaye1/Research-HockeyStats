@@ -101,11 +101,11 @@
                         <label>Beverage Duty</label>
                     </td>
                     <td>
-                        <sf:select path="beverageDutyPlayer" cssClass="input-medium">
+                        <sf:select path="playerOnBeverageDuty" cssClass="input-medium">
                             <sf:option value="" label="Select" />
                             <sf:options items="${players}" itemValue="id" itemLabel="fullName" />
                         </sf:select>
-                        <sf:errors path="beverageDutyPlayer" cssClass="alert-error" />
+                        <sf:errors path="playerOnBeverageDuty" cssClass="alert-error" />
                     </td>
                 </tr>
             </table>

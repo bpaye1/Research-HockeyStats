@@ -2,6 +2,15 @@
     width: 30px;
 }
 
+.input-x-small{
+    width: 30px;
+    margin-bottom: 0px;
+}
+
 .centered{
     text-align: center;
+}
+
+.table-input{
+    padding-bottom: 0px;
 }

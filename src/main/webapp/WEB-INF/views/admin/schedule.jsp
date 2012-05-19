@@ -70,7 +70,7 @@
                                 ${game.location}
                             </td>
                             <td class="span7">
-                                ${game.beverageDutyPlayer.fullName}
+                                ${game.playerOnBeverageDuty.fullName}
                             </td>
                             <td span="1">
                                 <a href="${gameResultUrl}">

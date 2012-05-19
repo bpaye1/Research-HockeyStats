@@ -24,7 +24,7 @@ public class ScheduleRepositoryImpl extends GenericRepositoryImpl<Schedule, Inte
     }
 
     public Game findGame(Long id) {
-        String hql = "select g from Game g left join fetch g.gameStats where g.id = :id";
+        String hql = "select g from Game g left join fetch g.gameStats left join fetch g.goalieGameStats where g.id = :id";
         TypedQuery<Game> query = em.createQuery(hql, Game.class).setParameter("id", id);
         return query.getSingleResult();
     }

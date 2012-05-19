@@ -1,6 +1,6 @@
 package org.bpaye1.research.model.schedule.game;
 
-import com.google.common.collect.Lists;
+import com.google.common.collect.Sets;
 import org.apache.commons.lang.StringUtils;
 import org.bpaye1.research.model.player.Player;
 import org.bpaye1.research.model.player.Position;
@@ -15,7 +15,9 @@ import org.springframework.format.annotation.DateTimeFormat;
 import javax.persistence.*;
 import javax.validation.constraints.Future;
 import javax.validation.constraints.NotNull;
+import java.util.Collection;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name="GAME")
@@ -58,7 +60,7 @@ public class Game {
 
 	@ManyToOne
 	@JoinColumn(name="PLAYER_ON_BEVARAGE_DUTY")
-	private Player beverageDutyPlayer;
+	private Player playerOnBeverageDuty;
 
     @Column(name="TEAM_SCORE")
     private Integer teamScore;
@@ -68,11 +70,11 @@ public class Game {
 
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name="GAME_ID")
-    private List<PlayerGameStats> gameStats = Lists.newArrayList();
+    private Set<PlayerGameStats> gameStats = Sets.newHashSet();
 
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name="GAME_ID")
-    private List<GoalieGameStats> goalieGameStats = Lists.newArrayList();
+    private Set<GoalieGameStats> goalieGameStats = Sets.newHashSet();
 
 	public Game(){
 	}
@@ -91,7 +93,11 @@ public class Game {
         this.location = location;
 	}
 
-	public Schedule getSchedule() {
+    public Long getId() {
+        return id;
+    }
+
+    public Schedule getSchedule() {
 		return schedule;
 	}
 
@@ -139,16 +145,12 @@ public class Game {
 		this.homeOrAway = homeOrAway;
 	}
 
-	public Player getBeverageDutyPlayer() {
-		return beverageDutyPlayer;
+	public Player getPlayerOnBeverageDuty() {
+		return playerOnBeverageDuty;
 	}
 
-	public void setBeverageDutyPlayer(Player beverageDutyPlayer) {
-		this.beverageDutyPlayer = beverageDutyPlayer;
-	}
-
-	public Long getId() {
-		return id;
+	public void setPlayerOnBeverageDuty(Player playerOnBeverageDuty) {
+		this.playerOnBeverageDuty = playerOnBeverageDuty;
 	}
 
     public Integer getOpponentTeamScore() {
@@ -167,11 +169,11 @@ public class Game {
         this.teamScore = teamScore;
     }
 
-    public List<PlayerGameStats> getGameStats() {
+    public Collection<PlayerGameStats> getGameStats() {
         return gameStats;
     }
 
-    public List<GoalieGameStats> getGoalieGameStats(){
+    public Collection<GoalieGameStats> getGoalieGameStats(){
         return  goalieGameStats;
     }
 
@@ -196,7 +198,7 @@ public class Game {
     }
 
     public boolean hasNoGameStats(){
-        return gameStats.size() == 0;
+        return gameStats.size() == 0 && goalieGameStats.size() == 0;
     }
 
     public void initializeGameStats(List<Player> players){

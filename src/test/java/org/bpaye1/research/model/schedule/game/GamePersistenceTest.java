@@ -44,7 +44,7 @@ public class GamePersistenceTest extends AbstractDatabaseTest{
         assertThat(persistedGame.getTeamScore(), is(5));
         assertThat(persistedGame.getOpponentTeamScore(), is(3));
         assertThat(persistedGame.getGameStats(), hasItem(gameStatsForJoe));
-        PlayerGameStats playerGameStats = persistedGame.getGameStats().get(0);
+        PlayerGameStats playerGameStats = persistedGame.getGameStats().iterator().next();
         assertThat(playerGameStats.getGoals(), is(2));
         assertThat(playerGameStats.getAssists(), is(1));
         assertThat(playerGameStats.getPenaltyMinutes(), is(4));
@@ -66,7 +66,7 @@ public class GamePersistenceTest extends AbstractDatabaseTest{
         Game persistedGame = getEm().find(Game.class, game1.getId());
         GoalieGameStats goalieGameStats = new GoalieGameStats(persistedGame, goalie);
         goalieGameStats.setGoalsAgainst(2);
-        goalieGameStats.setShotsOnGoals(20);
+        goalieGameStats.setShotsOnGoal(20);
 
         persistedGame.setTeamScore(5);
         persistedGame.setOpponentTeamScore(3);
@@ -81,8 +81,8 @@ public class GamePersistenceTest extends AbstractDatabaseTest{
         assertThat(persistedGame.getTeamScore(), is(5));
         assertThat(persistedGame.getOpponentTeamScore(), is(3));
         assertThat(persistedGame.getGoalieGameStats(), hasItem(goalieGameStats));
-        GoalieGameStats playerGameStats = persistedGame.getGoalieGameStats().get(0);
-        assertThat(playerGameStats.getShotsOnGoals(), is(20));
+        GoalieGameStats playerGameStats = persistedGame.getGoalieGameStats().iterator().next();
+        assertThat(playerGameStats.getShotsOnGoal(), is(20));
         assertThat(playerGameStats.getGoalsAgainst(), is(2));
         assertThat(playerGameStats.getPlayer(), is(goalie));
     }

@@ -27,7 +27,7 @@ public class GoalieGameStats {
     private Integer goalsAgainst;
 
     @Column(name="SHOTS_ON_GOAL")
-    private Integer shotsOnGoals;
+    private Integer shotsOnGoal;
 
     protected GoalieGameStats(){
     }
@@ -50,16 +50,16 @@ public class GoalieGameStats {
         this.goalsAgainst = goalsAgainst;
     }
 
-    public Integer getShotsOnGoals() {
-        return shotsOnGoals;
+    public Integer getShotsOnGoal() {
+        return shotsOnGoal;
     }
 
-    public void setShotsOnGoals(Integer shotsOnGoals) {
-        this.shotsOnGoals = shotsOnGoals;
+    public void setShotsOnGoal(Integer shotsOnGoals) {
+        this.shotsOnGoal = shotsOnGoals;
     }
 
     public Double getSavePercentage(){
-        return (goalsAgainst / Double.valueOf(shotsOnGoals)) * 100;
+        return (goalsAgainst / Double.valueOf(shotsOnGoal)) * 100;
     }
 
     @Override

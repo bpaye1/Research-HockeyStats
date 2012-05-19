@@ -66,7 +66,7 @@ public class SchedulePersistenceTest extends AbstractDatabaseTest {
 		Schedule schedule = new Schedule("Fall 2012", "B-League");
 		Game game1 = new Game(schedule, new LocalDate(2012, 9, 23),
                 new LocalTime(21, 30), "Chiefs", HomeOrAway.AWAY, "Random Arena");
-		game1.setBeverageDutyPlayer(joe);
+		game1.setPlayerOnBeverageDuty(joe);
         game1.setTeamScore(5);
         game1.setOpponentTeamScore(3);
 
@@ -81,7 +81,7 @@ public class SchedulePersistenceTest extends AbstractDatabaseTest {
 		assertThat(persistedGame.getOpponent(), is(game1.getOpponent()));
 		assertThat(persistedGame.getSchedule(), is(schedule));
 		assertThat(persistedGame.getHomeOrAway(), is(game1.getHomeOrAway()));
-		assertThat(persistedGame.getBeverageDutyPlayer(), is(joe));
+		assertThat(persistedGame.getPlayerOnBeverageDuty(), is(joe));
         assertThat(persistedGame.getLocation(), is(game1.getLocation()));
         assertThat(persistedGame.getTeamScore(), is(game1.getTeamScore()));
         assertThat(persistedGame.getOpponentTeamScore(), is(game1.getOpponentTeamScore()));

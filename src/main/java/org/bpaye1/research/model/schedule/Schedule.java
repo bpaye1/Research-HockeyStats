@@ -26,7 +26,8 @@ public class Schedule {
     @NotEmpty
 	@Column(name="LEAGUE")
 	private String league;
-	
+
+    // TODO Remove fetch type.
 	@OneToMany(cascade=CascadeType.ALL, mappedBy="schedule", orphanRemoval=true, fetch = FetchType.EAGER)
 	private List<Game> games = Lists.newArrayList();
 	
