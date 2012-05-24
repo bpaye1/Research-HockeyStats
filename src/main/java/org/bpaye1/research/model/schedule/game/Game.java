@@ -34,7 +34,6 @@ public class Game {
 	private Schedule schedule;
 
     @NotNull
-    @Future
     @DateTimeFormat(pattern = "MM/dd/yyyy")
     @Type(type="org.jadira.usertype.dateandtime.joda.PersistentLocalDate")
 	@Column(name="GAME_DATE")
@@ -177,8 +176,23 @@ public class Game {
         return  goalieGameStats;
     }
 
+    //TODO Refactor this
     public String getDescription(){
-        return isGamePlayed() ? teamScore + " - " + opponentTeamScore : StringUtils.EMPTY;
+        return isGamePlayed() ? resultDescription() + " " + teamScore + " - " + opponentTeamScore : "Edit";
+    }
+
+    //TODO Refactor this
+    private String resultDescription(){
+        if(isGameWon()){
+            return "W";
+        }
+        if(isGameTied()){
+            return  "T";
+        }
+        if(isGameLost()){
+            return "L";
+        }
+        return "";
     }
 
     public boolean isGameTied(){

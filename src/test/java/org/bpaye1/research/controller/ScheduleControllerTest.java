@@ -211,7 +211,7 @@ public class ScheduleControllerTest {
     }
 
     @Test
-    public void editGameResults() throws Exception {
+    public void editGameResults_initialize() throws Exception {
         Model model = new ExtendedModelMap();
         Schedule winter2012 = new Schedule("Winter 2012", "B-League");
         Game game1 = new Game(winter2012, new LocalDate(2012, 04, 12), new LocalTime(21,30), "Chiefs", HomeOrAway.AWAY, "Reunion Arena");
@@ -220,4 +220,32 @@ public class ScheduleControllerTest {
         verify(service).findGame(game1.getId());
         assertThat(model.containsAttribute("game"), is(true));
     }
+
+    @Test
+    public void editGameResults_whenBindingErrorsExist() throws Exception {
+        Model model = new ExtendedModelMap();
+        Schedule winter2012 = new Schedule("Winter 2012", "B-League");
+        Game game1 = new Game(winter2012, new LocalDate(2012, 04, 12), new LocalTime(21,30), "Chiefs", HomeOrAway.AWAY, "Reunion Arena");
+        ReflectionTestUtils.setField(game1, "id", 1L);
+
+        when(bindResult.hasErrors()).thenReturn(true);
+
+        String viewName = controller.editGameResults(game1.getId(), model);
+        assertThat(viewName, is("schedule-game-result"));
+    }
+
+    @Test
+    public void editGameResults_whenNoBindingErrorsExist() throws Exception {
+        Model model = new ExtendedModelMap();
+        Schedule winter2012 = new Schedule("Winter 2012", "B-League");
+        Game game1 = new Game(winter2012, new LocalDate(2012, 04, 12), new LocalTime(21,30), "Chiefs", HomeOrAway.AWAY, "Reunion Arena");
+        ReflectionTestUtils.setField(game1, "id", 1L);
+
+        when(bindResult.hasErrors()).thenReturn(false);
+
+        String viewName = controller.editGameResults(game1, bindResult, winter2012.getId());
+        verify(service).updateSchedule(winter2012);
+        assertThat(viewName, is("redirect:/admin/schedules/schedule/null"));
+    }
+
 }

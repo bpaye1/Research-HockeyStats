@@ -1,7 +1,6 @@
 package org.bpaye1.research.model.schedule.game;
 
 import com.google.common.collect.Lists;
-import org.apache.commons.lang.StringUtils;
 import org.bpaye1.research.model.player.Player;
 import org.bpaye1.research.model.player.Position;
 import org.bpaye1.research.model.schedule.Schedule;
@@ -12,6 +11,7 @@ import static org.hamcrest.Matchers.hasItem;
 import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertThat;
 
+//TODO Cleanup tests
 public class GameTest {
 
     @Test
@@ -53,25 +53,25 @@ public class GameTest {
         Game game = new Game(spring2012);
         game.setTeamScore(5);
         game.setOpponentTeamScore(3);
-        assertThat(game.getDescription(), is("5 - 3"));
+        assertThat(game.getDescription(), is("W 5 - 3"));
     }
 
     @Test
-    public void getDescription_shouldReturnEmptyStringWhenTeamScoreIsNull() throws Exception {
+    public void getDescription_shouldReturnEditWhenTeamScoreIsNull() throws Exception {
         Schedule spring2012 = new Schedule("Spring 2012", "A-League");
         Game game = new Game(spring2012);
         game.setTeamScore(null);
         game.setOpponentTeamScore(3);
-        assertThat(game.getDescription(), is(StringUtils.EMPTY));
+        assertThat(game.getDescription(), is("Edit"));
     }
 
     @Test
-    public void getDescription_shouldReturnEmptyStringWhenOpponentTeamScoreIsNull() throws Exception {
+    public void getDescription_shouldReturnEditStringWhenOpponentTeamScoreIsNull() throws Exception {
         Schedule spring2012 = new Schedule("Spring 2012", "A-League");
         Game game = new Game(spring2012);
         game.setTeamScore(5);
         game.setOpponentTeamScore(null);
-        assertThat(game.getDescription(), is(StringUtils.EMPTY));
+        assertThat(game.getDescription(), is("Edit"));
     }
 
     @Test
@@ -80,7 +80,7 @@ public class GameTest {
         Game game = new Game(spring2012);
         game.setTeamScore(null);
         game.setOpponentTeamScore(null);
-        assertThat(game.getDescription(), is(StringUtils.EMPTY));
+        assertThat(game.getDescription(), is("Edit"));
     }
 
     @Test

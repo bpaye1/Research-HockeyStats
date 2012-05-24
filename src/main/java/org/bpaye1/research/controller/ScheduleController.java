@@ -118,4 +118,13 @@ public class ScheduleController {
         model.addAttribute("game", game);
         return "schedule-game-result";
     }
+
+    @RequestMapping(value = "schedule/{scheduleId}/game/{id}/result", method = RequestMethod.POST)
+    public String editGameResults(@Valid Game game, BindingResult bindingResult, @PathVariable Integer scheduleId){
+        if(bindingResult.hasErrors()){
+            return "schedule-game-result";
+        }
+        service.updateSchedule(game.getSchedule());
+        return "redirect:/admin/schedules/schedule/" +  scheduleId;
+    }
 }

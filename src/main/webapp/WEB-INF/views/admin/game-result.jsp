@@ -5,7 +5,6 @@
 
 <script type="text/javascript" src="<c:url value="/resources/js/game-result.js/" />"></script>
 
-<c:url value="/resources/stylesheets/stylesheet.css" />
 <div class="container">
     <div class="row">
         <div class="span8">
@@ -111,7 +110,6 @@
                                     <th>Player</th>
                                     <th>Goals Against</th>
                                     <th>Shots on Goal</th>
-                                    <th>Save Pct</th>
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -124,12 +122,10 @@
                                                 ${goalieGameStats.player.fullName}
                                         </td>
                                         <td class="span1">
-                                            <sf:input path="goalieGameStats[${status.index}].goalsAgainst" maxlength="2" cssClass="input-x-small numeric" />
+                                            <sf:input path="goalieGameStats[${status.index}].goalsAgainst" maxlength="2" cssClass="input-x-small numeric goalsAgainst " />
                                         </td>
                                         <td class="span1">
-                                            <sf:input path="goalieGameStats[${status.index}].shotsOnGoal" maxlength="2" cssClass="input-x-small numeric" />
-                                        </td>
-                                        <td class="span1">
+                                            <sf:input path="goalieGameStats[${status.index}].shotsOnGoal" maxlength="2" cssClass="input-x-small numeric shotsOnGoal" />
                                         </td>
                                     </tr>
                                 </c:forEach>
@@ -139,7 +135,6 @@
                                     <td colspan="2">Totals</td>
                                     <td id="totalGoalsAgainst"></td>
                                     <td id="totalShotsOnGoal"></td>
-                                    <td id="savePercentage"></td>
                                 </tr>
                                 </tfoot>
                             </table>

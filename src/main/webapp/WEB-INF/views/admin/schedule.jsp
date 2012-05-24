@@ -5,7 +5,7 @@
 
 <div class="container">
 	<div class="row">
-		<div class="span16">
+		<div class="span32">
 
             <div id="breadcrumbs">
                 <ul class="breadcrumb">
@@ -52,42 +52,28 @@
                         <s:url var="gameUrl" value="/admin/schedules/schedule/${schedule.id}/game/${game.id}" />
                         <s:url var="gameResultUrl" value="/admin/schedules/schedule/${schedule.id}/game/${game.id}/result" />
                         <tr class="row">
-                            <td class="span4">
+                            <td>
                                 <joda:format value="${game.date}" style="L-" />
                              </td>
-                            <td class="span4">
+                            <td>
                                 <joda:format value="${game.time}" style="-S" />
                             </td>
-                            <td class="span2">
+                            <td>
                                 <a href="${gameUrl}">
                                     ${game.opponent}
                                 </a>
                             </td>
-                            <td class="span1">
+                            <td>
                                 ${game.homeOrAway.description}
                             </td>
-                            <td class="span8">
+                            <td>
                                 ${game.location}
                             </td>
-                            <td class="span7">
+                            <td>
                                 ${game.playerOnBeverageDuty.fullName}
                             </td>
-                            <td span="1">
+                            <td>
                                 <a href="${gameResultUrl}">
-                                    <c:choose>
-                                        <c:when test="game.isGameWon()">
-                                            W
-                                        </c:when>
-                                        <c:when test="game.isGameLost()">
-                                            L
-                                        </c:when>
-                                        <c:when test="game.isGameTied()">
-                                            T
-                                        </c:when>
-                                        <c:otherwise>
-                                            Not Played
-                                        </c:otherwise>
-                                    </c:choose>
                                     ${game.description}
                                 </a>
                             </td>
